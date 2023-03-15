@@ -18,6 +18,10 @@ provider "google" {
   project = var.project_id
 }
 
+provider "google-beta" {
+  project = var.project_id
+}
+
 locals {
   cluster_usa_name    = google_container_cluster.my_cluster_usa.name
   cluster_canada_name = google_container_cluster.my_cluster_canada.name
@@ -28,8 +32,11 @@ module "enable_google_apis" {
   source                      = "terraform-google-modules/project-factory/google//modules/project_services"
   version                     = "~> 14.0"
   disable_services_on_destroy = false
-  activate_apis               = ["container.googleapis.com"]
-  project_id                  = var.project_id
+  activate_apis = [
+    "container.googleapis.com",
+    "gkehub.googleapis.com",
+  ]
+  project_id = var.project_id
 }
 
 resource "google_container_cluster" "my_cluster_usa" {
@@ -43,6 +50,7 @@ resource "google_container_cluster" "my_cluster_usa" {
   # Workaround from https://github.com/hashicorp/terraform-provider-google/issues/10782#issuecomment-1024488630
   ip_allocation_policy {
   }
+  provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
 
 resource "google_container_cluster" "my_cluster_canada" {
@@ -56,6 +64,7 @@ resource "google_container_cluster" "my_cluster_canada" {
   # Workaround from https://github.com/hashicorp/terraform-provider-google/issues/10782#issuecomment-1024488630
   ip_allocation_policy {
   }
+  provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
 
 resource "google_container_cluster" "my_cluster_config" {
@@ -69,4 +78,5 @@ resource "google_container_cluster" "my_cluster_config" {
   # Workaround from https://github.com/hashicorp/terraform-provider-google/issues/10782#issuecomment-1024488630
   ip_allocation_policy {
   }
+  provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
