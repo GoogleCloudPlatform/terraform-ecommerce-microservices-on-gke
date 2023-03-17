@@ -33,8 +33,13 @@ module "enable_google_apis" {
   version                     = "~> 14.0"
   disable_services_on_destroy = false
   activate_apis = [
+    "cloudresourcemanager.googleapis.com",
     "container.googleapis.com",
+    "dns.googleapis.com",
     "gkehub.googleapis.com",
+    "multiclusteringress.googleapis.com",
+    "multiclusterservicediscovery.googleapis.com",
+    "trafficdirector.googleapis.com",
   ]
   project_id = var.project_id
 }
