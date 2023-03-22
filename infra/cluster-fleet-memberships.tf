@@ -15,7 +15,7 @@
  */
 
 resource "google_gke_hub_membership" "my_fleet_membership_usa" {
-  membership_id = "my-fleet-membership-usa"
+  membership_id = "my-fleet-membership-usa${var.resource_name_suffix}"
   endpoint {
     gke_cluster {
       resource_link = "//container.googleapis.com/${google_container_cluster.my_cluster_usa.id}"
@@ -25,7 +25,7 @@ resource "google_gke_hub_membership" "my_fleet_membership_usa" {
 }
 
 resource "google_gke_hub_membership" "my_fleet_membership_canada" {
-  membership_id = "my-fleet-membership-canada"
+  membership_id = "my-fleet-membership-canada${var.resource_name_suffix}"
   endpoint {
     gke_cluster {
       resource_link = "//container.googleapis.com/${google_container_cluster.my_cluster_canada.id}"
@@ -35,7 +35,7 @@ resource "google_gke_hub_membership" "my_fleet_membership_canada" {
 }
 
 resource "google_gke_hub_membership" "my_fleet_membership_config" {
-  membership_id = "my-fleet-membership-config"
+  membership_id = "my-fleet-membership-config${var.resource_name_suffix}"
   endpoint {
     gke_cluster {
       resource_link = "//container.googleapis.com/${google_container_cluster.my_cluster_config.id}"

@@ -45,7 +45,7 @@ module "enable_google_apis" {
 }
 
 resource "google_container_cluster" "my_cluster_usa" {
-  name             = "my-cluster-usa"
+  name             = "my-cluster-usa${var.resource_name_suffix}"
   location         = "us-west1"
   enable_autopilot = true
   depends_on = [
@@ -59,7 +59,7 @@ resource "google_container_cluster" "my_cluster_usa" {
 }
 
 resource "google_container_cluster" "my_cluster_canada" {
-  name             = "my-cluster-canada"
+  name             = "my-cluster-canada${var.resource_name_suffix}"
   location         = "northamerica-northeast1"
   enable_autopilot = true
   depends_on = [
@@ -73,7 +73,7 @@ resource "google_container_cluster" "my_cluster_canada" {
 }
 
 resource "google_container_cluster" "my_cluster_config" {
-  name             = "my-cluster-config"
+  name             = "my-cluster-config${var.resource_name_suffix}"
   location         = "us-west1"
   enable_autopilot = true
   depends_on = [

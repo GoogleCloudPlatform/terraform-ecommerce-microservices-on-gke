@@ -18,3 +18,9 @@ variable "project_id" {
   type        = string
   description = "Google Cloud Project ID"
 }
+
+variable "resource_name_suffix" {
+  type        = string
+  default     = "-1"
+  description = "Optional string added to the end of GCP resource names, allowing GCP project reuse"
+}
