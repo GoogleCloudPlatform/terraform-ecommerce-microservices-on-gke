@@ -29,4 +29,7 @@ resource "google_project_iam_member" "gke_mcs_importer_iam_binding" {
   project = var.project_id
   role    = "roles/compute.networkViewer"
   member  = "serviceAccount:${var.project_id}.svc.id.goog[gke-mcs/gke-mcs-importer]"
+  depends_on = [
+    resource.google_gke_hub_feature.multi_cluster_ingress_feature
+  ]
 }
