@@ -25,7 +25,6 @@ cd terraform-ecommerce-microservices-on-gke/infra
 
 ```
 terraform init
-terraform plan -var 'project_id=MY_PROJECT_ID`
 terraform apply -var 'project_id=MY_PROJECT_ID`
 ```
 
