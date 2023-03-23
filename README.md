@@ -10,11 +10,6 @@ Try out the Terraform in this repository.
 git clone https://github.com/GoogleCloudPlatform/terraform-ecommerce-microservices-on-gke
 ```
 
-Or if you plan on making contributions to this repository, use SSH (instead of HTTPS):
-```
-git clone git@github.com:GoogleCloudPlatform/terraform-ecommerce-microservices-on-gke.git
-```
-
 #### 2. Go into the `infra/` folder.
 
 ```
