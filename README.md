@@ -20,7 +20,7 @@ cd terraform-ecommerce-microservices-on-gke/infra
 
 ```
 terraform init
-terraform apply -var 'project_id=MY_PROJECT_ID`
+terraform apply -var 'project_id=MY_PROJECT_ID'
 ```
 
 Replace `MY_PROJECT_ID` with your [Google Cloud Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) ID. We recommend creating a new project so you can easily clean up all resources by deleting the entire project.
