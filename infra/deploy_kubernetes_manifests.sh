@@ -1,20 +1,21 @@
 # Script parameters
+PROJECT_ID=$0
 RESOURCE_NAME_SUFFIX=$1
 
-CLUSTER_CONTEXT_CANADA=gke_nimjay-hsa-2_northamerica-northeast1_my-cluster-canada${RESOURCE_NAME_SUFFIX}
-CLUSTER_CONTEXT_CONFIG=gke_nimjay-hsa-2_us-west1_my-cluster-config${RESOURCE_NAME_SUFFIX}
-CLUSTER_CONTEXT_USA=gke_nimjay-hsa-2_us-west1_my-cluster-usa${RESOURCE_NAME_SUFFIX}
+CLUSTER_CONTEXT_CANADA=gke_${PROJECT_ID}_northamerica-northeast1_my-cluster-canada${RESOURCE_NAME_SUFFIX}
+CLUSTER_CONTEXT_CONFIG=gke_${PROJECT_ID}_us-west1_my-cluster-config${RESOURCE_NAME_SUFFIX}
+CLUSTER_CONTEXT_USA=gke_${PROJECT_ID}_us-west1_my-cluster-usa${RESOURCE_NAME_SUFFIX}
 K8S_MANIFESTS_DIR=../kubernetes_manifests
 
 # Connect to the 3 clusters that we just created.
 gcloud container clusters get-credentials my-cluster-canada${RESOURCE_NAME_SUFFIX} \
-  --project nimjay-hsa-2 \
+  --project ${PROJECT_ID} \
   --region northamerica-northeast1
 gcloud container clusters get-credentials my-cluster-usa${RESOURCE_NAME_SUFFIX} \
-  --project nimjay-hsa-2 \
+  --project ${PROJECT_ID} \
   --region us-west1
 gcloud container clusters get-credentials my-cluster-config${RESOURCE_NAME_SUFFIX} \
-  --project nimjay-hsa-2 \
+  --project ${PROJECT_ID} \
   --region us-west1
 
 app_namespaces=(adservice cartservice checkoutservice currencyservice emailservice frontend paymentservice productcatalogservice recommendationservice shippingservice)
