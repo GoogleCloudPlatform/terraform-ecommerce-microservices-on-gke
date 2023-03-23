@@ -1,6 +1,6 @@
 # Script parameters
-PROJECT_ID=$0
-RESOURCE_NAME_SUFFIX=$1
+PROJECT_ID=$1
+RESOURCE_NAME_SUFFIX=$2
 
 CLUSTER_CONTEXT_CANADA=gke_${PROJECT_ID}_northamerica-northeast1_my-cluster-canada${RESOURCE_NAME_SUFFIX}
 CLUSTER_CONTEXT_CONFIG=gke_${PROJECT_ID}_us-west1_my-cluster-config${RESOURCE_NAME_SUFFIX}
