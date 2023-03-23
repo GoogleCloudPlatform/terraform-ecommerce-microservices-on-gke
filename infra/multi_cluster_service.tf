@@ -15,7 +15,7 @@
  */
 
 resource "google_gke_hub_feature" "multi_cluster_ingress_feature" {
-  name = "multiclusteringress"
+  name     = "multiclusteringress"
   location = "global"
   spec {
     multiclusteringress {
