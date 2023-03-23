@@ -33,6 +33,26 @@ a. Search the [existing list of GitHub](https://github.com/GoogleCloudPlatform/t
 
 b. If there isn't already a GitHub issue for your bug, [create a new GitHub issue](https://github.com/GoogleCloudPlatform/terraform-ecommerce-microservices-on-gke/issues/new/choose).
 
+#### 5. Get the IP address of the deployment.
+
+We deployed 3 clusters — one of them is a [config cluster](https://cloud.google.com/kubernetes-engine/docs/concepts/multi-cluster-ingress#config_cluster_design). It can tell you the IP address of the deployment.
+
+**a.** The config cluster's context is named similar to `my-project-id_us-west1_my-cluster-config`. Find the context:
+
+```
+kubectx | grep my-cluster-config
+```
+
+**b.** Replace `CONFIG_CLUSTER_CONTEXT` (in the command below) with the name of your config cluster, and get the IP address of deployment (that has been assigned to the `MultiClusterIngress`).
+
+```
+kubectl \
+  --context=CONFIG_CLUSTER_CONTEXT \
+  --namespace frontend \
+  get MultiClusterIngress frontend-multi-cluster-ingress \
+  --output jsonpath='{.status.VIP}'
+```
+
 ## Contributing
 
 If you would like to contribute to this repository, read [CONTRIBUTING](CONTRIBUTING.md).
