@@ -7,6 +7,7 @@ CLUSTER_CONTEXT_USA=gke_${PROJECT_ID}_us-west1_my-cluster-usa${RESOURCE_NAME_SUF
 K8S_MANIFESTS_DIR=../kubernetes_manifests
 
 # Deploy Multi Cluster Ingress configuration.
+sed -i "s/RESOURCE_NAME_SUFFIX/${RESOURCE_NAME_SUFFIX}/g" ${K8S_MANIFESTS_DIR}/multi_cluster_ingress.yaml
 kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
   apply -f ${K8S_MANIFESTS_DIR}/multi_cluster_ingress.yaml
 
