@@ -29,7 +29,7 @@ kubectl --context=${CLUSTER_CONTEXT_CANADA} \
 kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
   apply -f ${K8S_MANIFESTS_DIR}/namespaces.yaml
 
-# Deploy most of Cymbal Shops.
+# Deploy most of the microservices.
 for namespace in "${app_namespaces[@]}";
 do
   kubectl --context=${CLUSTER_CONTEXT_USA} \
@@ -37,12 +37,3 @@ do
   kubectl --context=${CLUSTER_CONTEXT_CANADA} \
     apply -f ${K8S_MANIFESTS_DIR}/${namespace}/
 done
-
-# Deploy Multi Cluster Ingress configuration.
-kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
-  apply -f ${K8S_MANIFESTS_DIR}/multi_cluster_ingress.yaml
-
-# Deploy the redis-cart Service into the US cluster.
-# This redis-cart Service gets exported to the other clusters.
-kubectl --context=${CLUSTER_CONTEXT_USA} \
-  apply -f ${K8S_MANIFESTS_DIR}/redis_cart/
