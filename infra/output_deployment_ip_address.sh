@@ -8,7 +8,7 @@ echo 'Waiting for MultiClusterIngress IP address...'
 DEPLOYMENT_IP_ADDRESS=''
 while [[ -z ${DEPLOYMENT_IP_ADDRESS} ]]
 do
-  DEPLOYMENT_IP_ADDRESS=(kubectl \
+  DEPLOYMENT_IP_ADDRESS=$(kubectl \
     --context=${CLUSTER_CONTEXT_CONFIG} \
     --namespace frontend \
     get MultiClusterIngress frontend-multi-cluster-ingress \
