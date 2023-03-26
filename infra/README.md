@@ -7,4 +7,6 @@
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_deployment_ip_address"></a> [deployment\_ip\_address](#output\_deployment\_ip\_address) | Public IP address of the deployment |
