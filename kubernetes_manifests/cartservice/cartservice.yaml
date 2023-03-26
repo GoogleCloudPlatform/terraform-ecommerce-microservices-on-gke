@@ -47,7 +47,7 @@ spec:
         - containerPort: 7070
         env:
         - name: REDIS_ADDR
-          value: "redis-cart.cartservice.svc.clusterset.local:6379"
+          value: "redis-cart.cartservice:6379"
         - name: CYMBAL_BRANDING
           value: "true"
         resources:
