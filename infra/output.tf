@@ -33,5 +33,5 @@ data "local_file" "deployment_ip_address_file" {
 
 output "deployment_ip_address" {
   description = "Public IP address of the deployment"
-  value       = data.local_file.deployment_ip_address_file
+  value       = data.local_file.deployment_ip_address_file.content
 }
