@@ -25,7 +25,7 @@ resource "null_resource" "output_deployment_ip_address" {
 }
 
 data "local_file" "deployment_ip_address_file" {
-  filename = "${path.root}/deployment_ip_address_file"
+  filename = "${path.root}/deployment_ip_address"
   depends_on = [
     resource.null_resource.output_deployment_ip_address,
   ]
