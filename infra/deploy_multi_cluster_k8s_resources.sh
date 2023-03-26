@@ -9,6 +9,13 @@ K8S_MANIFESTS_DIR=../kubernetes_manifests
 
 # Deploy Multi Cluster Ingress configuration.
 sed -i "s/RESOURCE_NAME_SUFFIX/${RESOURCE_NAME_SUFFIX}/g" ${K8S_MANIFESTS_DIR}/multi_cluster_ingress.yaml
+echo 'Waiting for MutliClusterService CRD & MultiClusterIngress CRD...'
+kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
+  --namespace frontend \
+  wait --for condition=established --timeout=60s crd/multiclusterservice.networking.gke.io
+kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
+  --namespace frontend \
+  wait --for condition=established --timeout=60s crd/multiclusteringress.networking.gke.io
 kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
   apply -f ${K8S_MANIFESTS_DIR}/multi_cluster_ingress.yaml
 
