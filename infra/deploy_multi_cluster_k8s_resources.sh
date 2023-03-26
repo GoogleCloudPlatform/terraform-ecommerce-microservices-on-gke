@@ -14,9 +14,10 @@ kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
 
 # Deploy the redis-cart Service into the US cluster.
 # This redis-cart Service gets exported to the other clusters.
+echo 'Waiting for ServiceExport CRD...'
 kubectl --context=${CLUSTER_CONTEXT_USA} \
   --namespace cartservice \
-  wait --for condition=established --timeout=60s crd/serviceexports.net.gke.io
+  wait --for condition=established --timeout=120s crd/serviceexports.net.gke.io
 kubectl --context=${CLUSTER_CONTEXT_USA} \
   apply -f ${K8S_MANIFESTS_DIR}/redis_cart/
 
