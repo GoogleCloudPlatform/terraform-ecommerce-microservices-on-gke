@@ -4,6 +4,17 @@
 
 Try out the Terraform in this repository.
 
+### Prerequisites
+
+* The Terraform has only been tested on [Google Cloud Shell](https://cloud.google.com/shell).
+* You environment will need:
+    * `terraform`
+    * `gcloud`
+    * `kubectl`
+    * `sed`
+
+### Steps
+
 #### 1. Clone this git repository.
 
 ```
