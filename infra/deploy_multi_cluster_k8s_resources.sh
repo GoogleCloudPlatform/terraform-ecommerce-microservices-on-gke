@@ -12,10 +12,10 @@ sed -i "s/RESOURCE_NAME_SUFFIX/${RESOURCE_NAME_SUFFIX}/g" ${K8S_MANIFESTS_DIR}/m
 echo 'Waiting for MutliClusterService CRD & MultiClusterIngress CRD...'
 kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
   --namespace frontend \
-  wait --for condition=established --timeout=120s crd/multiclusterservice.networking.gke.io
+  wait --for condition=established --timeout=60s crd/multiclusterservices.networking.gke.io
 kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
   --namespace frontend \
-  wait --for condition=established --timeout=120s crd/multiclusteringress.networking.gke.io
+  wait --for condition=established --timeout=60s crd/multiclusteringresses.networking.gke.io
 kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
   apply -f ${K8S_MANIFESTS_DIR}/multi_cluster_ingress.yaml
 
