@@ -14,9 +14,9 @@ wait_for_crd() {
 
   echo "Waiting for CRD ${CRD} to be created in cluster ${CLUSTER_CONTEXT}..."
   SECONDS_WAITED=0
-  IS_CRD_CREATED=$(kubectl --context ${CLUSTER_CONTEXT} get crd/${CRD} --namespace=${NAMESPACE} 2>/dev/null)
+  IS_CRD_CREATED=$(kubectl --context ${CLUSTER_CONTEXT} get crd/${CRD} -n=${NAMESPACE} 2>/dev/null)
   while [[(${IS_CRD_CREATED} == "") && ${SECONDS_WAITED} -lt 60 ]]; do
-    IS_CRD_CREATED=$(kubectl --context ${CLUSTER_CONTEXT} get crd/${CRD} --namespace=${NAMESPACE} 2>/dev/null)
+    IS_CRD_CREATED=$(kubectl --context ${CLUSTER_CONTEXT} get crd/${CRD} -n=${NAMESPACE} 2>/dev/null)
     sleep 1s
     SECONDS_WAITED=$((SECONDS_WAITED+1))
   done
