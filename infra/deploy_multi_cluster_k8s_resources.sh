@@ -7,24 +7,37 @@ CLUSTER_CONTEXT_CONFIG=gke_${PROJECT_ID}_us-west1_my-cluster-config${RESOURCE_NA
 CLUSTER_CONTEXT_USA=gke_${PROJECT_ID}_us-west1_my-cluster-usa${RESOURCE_NAME_SUFFIX}
 K8S_MANIFESTS_DIR=../kubernetes_manifests
 
+wait_for_crd() {
+  CRD=$1
+  CLUSTER_CONTEXT=$2
+  NAMESPACE=$3
+
+  echo "Waiting for CRD ${CRD} to be created in cluster ${CLUSTER_CONTEXT}..."
+  SECONDS_WAITED=0
+  IS_CRD_CREATED=$(kubectl --context ${CLUSTER_CONTEXT} get crd/${CRD} --namespace=${NAMESPACE} 2>/dev/null)
+  while [[(${IS_CRD_CREATED} == "") && ${SECONDS_WAITED} -lt 60 ]]; do
+    IS_CRD_CREATED=$(kubectl --context ${CLUSTER_CONTEXT} get crd/${CRD} --namespace=${NAMESPACE} 2>/dev/null)
+    sleep 1s
+    SECONDS_WAITED=$((SECONDS_WAITED+1))
+  done
+
+  if [[ ${IS_CRD_CREATED} ]]; then
+    echo "CRD ${CRD} has been created in cluster ${CLUSTER_CONTEXT}."
+  else
+    echo "Timed out! Waited too long for ${CRD} to be created in cluster ${CLUSTER_CONTEXT}."
+  fi
+}
+
 # Deploy Multi Cluster Ingress configuration.
 sed -i "s/RESOURCE_NAME_SUFFIX/${RESOURCE_NAME_SUFFIX}/g" ${K8S_MANIFESTS_DIR}/multi_cluster_ingress.yaml
-echo 'Waiting for MutliClusterService CRD & MultiClusterIngress CRD...'
-kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
-  --namespace frontend \
-  wait --for condition=established --timeout=60s crd/multiclusterservices.networking.gke.io
-kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
-  --namespace frontend \
-  wait --for condition=established --timeout=60s crd/multiclusteringresses.networking.gke.io
+wait_for_crd "multiclusterservices.networking.gke.io" ${CLUSTER_CONTEXT_CONFIG} "frontend"
+wait_for_crd "multiclusteringresses.networking.gke.io" ${CLUSTER_CONTEXT_CONFIG} "frontend"
 kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
   apply -f ${K8S_MANIFESTS_DIR}/multi_cluster_ingress.yaml
 
 # Deploy the redis-cart Service into the US cluster.
 # This redis-cart Service gets exported to the other clusters.
-echo 'Waiting for ServiceExport CRD...'
-kubectl --context=${CLUSTER_CONTEXT_USA} \
-  --namespace cartservice \
-  wait --for condition=established --timeout=120s crd/serviceexports.net.gke.io
+wait_for_crd "serviceexports.net.gke.io" ${CLUSTER_CONTEXT_USA} "cartservice"
 kubectl --context=${CLUSTER_CONTEXT_USA} \
   apply -f ${K8S_MANIFESTS_DIR}/redis_cart/
 
