@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a bug and error you ecountered.
+about: Report a bug or error with this repository.
 
 ---
 
