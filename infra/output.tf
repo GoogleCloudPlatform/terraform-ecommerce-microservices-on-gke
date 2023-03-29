@@ -14,24 +14,7 @@
  * limitations under the License.
  */
 
-resource "null_resource" "output_deployment_ip_address" {
-  provisioner "local-exec" {
-    interpreter = ["bash", "-exc"]
-    command     = "chmod +x create_deployment_ip_address_file.sh;./create_deployment_ip_address_file.sh ${var.project_id} ${var.resource_name_suffix}"
-  }
-  depends_on = [
-    resource.null_resource.deploy_multi_cluster_k8s_resources,
-  ]
-}
-
-data "local_file" "deployment_ip_address_file" {
-  filename = "${path.root}/deployment_ip_address"
-  depends_on = [
-    resource.null_resource.output_deployment_ip_address,
-  ]
-}
-
 output "deployment_ip_address" {
   description = "Public IP address of the deployment"
-  value       = trimspace(data.local_file.deployment_ip_address_file.content)
+  value       = resource.multi_cluster_ingress_ip_address.address
 }

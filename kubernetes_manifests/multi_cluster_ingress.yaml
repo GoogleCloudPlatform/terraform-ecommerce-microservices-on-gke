@@ -36,6 +36,8 @@ kind: MultiClusterIngress
 metadata:
   name: frontend-multi-cluster-ingress
   namespace: frontend
+  annotations:
+    networking.gke.io/static-ip: multi-cluster-ingress-ip-address
 spec:
   template:
     spec:

@@ -14,6 +14,16 @@
  * limitations under the License.
  */
 
+
+resource "google_compute_global_address" "multi_cluster_ingress_ip_address" {
+  provider      = google-beta
+  name          = "multi-cluster-ingress-ip-address"
+  address_type  = "EXTERNAL"
+  depends_on = [
+    module.enable_google_apis
+  ]
+}
+
 resource "google_gke_hub_feature" "multi_cluster_ingress_feature" {
   name     = "multiclusteringress"
   location = "global"
