@@ -16,9 +16,10 @@
 
 
 resource "google_compute_global_address" "multi_cluster_ingress_ip_address" {
-  provider      = google-beta
-  name          = "multi-cluster-ingress-ip-address"
-  address_type  = "EXTERNAL"
+  provider     = google-beta
+  name         = "multi-cluster-ingress-ip-address"
+  address_type = "EXTERNAL"
+  project      = var.project_id
   depends_on = [
     module.enable_google_apis
   ]
