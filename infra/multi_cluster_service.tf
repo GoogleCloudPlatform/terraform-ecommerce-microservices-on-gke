@@ -28,6 +28,7 @@ resource "google_compute_global_address" "multi_cluster_ingress_ip_address" {
 resource "google_gke_hub_feature" "multi_cluster_ingress_feature" {
   name     = "multiclusteringress"
   location = "global"
+  project  = var.project_id
   spec {
     multiclusteringress {
       config_membership = google_gke_hub_membership.my_fleet_membership_config.id
