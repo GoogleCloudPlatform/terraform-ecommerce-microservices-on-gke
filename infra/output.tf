@@ -16,5 +16,5 @@
 
 output "deployment_ip_address" {
   description = "Public IP address of the deployment"
-  value       = resource.multi_cluster_ingress_ip_address.address
+  value       = resource.google_compute_global_address.multi_cluster_ingress_ip_address.address
 }
