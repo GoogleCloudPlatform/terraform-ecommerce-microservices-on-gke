@@ -14,9 +14,21 @@
  * limitations under the License.
  */
 
+
+resource "google_compute_global_address" "multi_cluster_ingress_ip_address" {
+  provider     = google-beta
+  name         = "multi-cluster-ingress-ip-address"
+  address_type = "EXTERNAL"
+  project      = var.project_id
+  depends_on = [
+    module.enable_google_apis
+  ]
+}
+
 resource "google_gke_hub_feature" "multi_cluster_ingress_feature" {
   name     = "multiclusteringress"
   location = "global"
+  project  = var.project_id
   spec {
     multiclusteringress {
       config_membership = google_gke_hub_membership.my_fleet_membership_config.id
