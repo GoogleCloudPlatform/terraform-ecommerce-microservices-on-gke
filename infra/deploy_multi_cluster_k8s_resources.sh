@@ -30,6 +30,7 @@ wait_for_crd() {
 
 # Deploy Multi Cluster Ingress configuration.
 sed -i "s/RESOURCE_NAME_SUFFIX/${RESOURCE_NAME_SUFFIX}/g" ${K8S_MANIFESTS_DIR}/multi_cluster_ingress.yaml
+sed -i "s/PROJECT_ID/${PROJECT_ID}/g" ${K8S_MANIFESTS_DIR}/multi_cluster_ingress.yaml
 wait_for_crd "multiclusterservices.networking.gke.io" ${CLUSTER_CONTEXT_CONFIG} "frontend"
 wait_for_crd "multiclusteringresses.networking.gke.io" ${CLUSTER_CONTEXT_CONFIG} "frontend"
 kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
