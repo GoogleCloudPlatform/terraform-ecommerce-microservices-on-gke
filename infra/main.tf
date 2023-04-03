@@ -22,12 +22,6 @@ provider "google-beta" {
   project = var.project_id
 }
 
-locals {
-  cluster_usa_name    = google_container_cluster.my_cluster_usa.name
-  cluster_canada_name = google_container_cluster.my_cluster_canada.name
-  cluster_config_name = google_container_cluster.my_cluster_config.name
-}
-
 module "enable_google_apis" {
   source                      = "terraform-google-modules/project-factory/google//modules/project_services"
   version                     = "~> 14.0"
@@ -59,9 +53,9 @@ resource "google_container_cluster" "my_cluster_usa" {
   provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
 
-resource "google_container_cluster" "my_cluster_canada" {
-  name             = "my-cluster-canada${var.resource_name_suffix}"
-  location         = "northamerica-northeast1"
+resource "google_container_cluster" "my_cluster_europe" {
+  name             = "my-cluster-europe${var.resource_name_suffix}"
+  location         = "europe-west1"
   enable_autopilot = true
   project          = var.project_id
   depends_on = [

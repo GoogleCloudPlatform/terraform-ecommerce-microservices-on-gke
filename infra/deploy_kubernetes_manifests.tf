@@ -20,7 +20,7 @@ resource "null_resource" "deploy_single_cluster_k8s_resources" {
     command     = "chmod +x deploy_single_cluster_k8s_resources.sh;./deploy_single_cluster_k8s_resources.sh ${var.project_id} ${var.resource_name_suffix}"
   }
   depends_on = [
-    resource.google_container_cluster.my_cluster_canada,
+    resource.google_container_cluster.my_cluster_europe,
     resource.google_container_cluster.my_cluster_config,
     resource.google_container_cluster.my_cluster_usa,
   ]

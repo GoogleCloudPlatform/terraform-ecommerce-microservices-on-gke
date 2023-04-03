@@ -25,12 +25,12 @@ resource "google_gke_hub_membership" "my_fleet_membership_usa" {
   provider = google-beta
 }
 
-resource "google_gke_hub_membership" "my_fleet_membership_canada" {
-  membership_id = "my-fleet-membership-canada${var.resource_name_suffix}"
+resource "google_gke_hub_membership" "my_fleet_membership_europe" {
+  membership_id = "my-fleet-membership-europe${var.resource_name_suffix}"
   project       = var.project_id
   endpoint {
     gke_cluster {
-      resource_link = "//container.googleapis.com/${google_container_cluster.my_cluster_canada.id}"
+      resource_link = "//container.googleapis.com/${google_container_cluster.my_cluster_europe.id}"
     }
   }
   provider = google-beta
