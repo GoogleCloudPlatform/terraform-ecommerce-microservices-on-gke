@@ -31,6 +31,7 @@ module "enable_google_apis" {
     "container.googleapis.com",
     "dns.googleapis.com",
     "gkehub.googleapis.com",
+    "iam.googleapis.com",
     "multiclusteringress.googleapis.com",
     "multiclusterservicediscovery.googleapis.com",
     "trafficdirector.googleapis.com",
