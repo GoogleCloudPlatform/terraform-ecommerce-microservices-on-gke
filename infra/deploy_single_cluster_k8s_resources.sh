@@ -38,18 +38,18 @@ app_namespaces=(adservice cartservice checkoutservice currencyservice emailservi
 
 # Create namespaces.
 # Some Namespaces (especially in my-cluster-config) will be unused.
-kubectl --context=${CLUSTER_CONTEXT_USA} \
+kubectl --context="${CLUSTER_CONTEXT_USA}" \
   apply -f "${K8S_MANIFESTS_DIR}/namespaces.yaml"
-kubectl --context=${CLUSTER_CONTEXT_CANADA} \
+kubectl --context="${CLUSTER_CONTEXT_CANADA}" \
   apply -f "${K8S_MANIFESTS_DIR}/namespaces.yaml"
-kubectl --context=${CLUSTER_CONTEXT_CONFIG} \
+kubectl --context="${CLUSTER_CONTEXT_CONFIG}" \
   apply -f "${K8S_MANIFESTS_DIR}/namespaces.yaml"
 
 # Deploy most of the microservices.
 for namespace in "${app_namespaces[@]}";
 do
-  kubectl --context=${CLUSTER_CONTEXT_USA} \
+  kubectl --context="${CLUSTER_CONTEXT_USA}" \
     apply -f "${K8S_MANIFESTS_DIR}/${namespace}/"
-  kubectl --context=${CLUSTER_CONTEXT_CANADA} \
+  kubectl --context="${CLUSTER_CONTEXT_CANADA}" \
     apply -f "${K8S_MANIFESTS_DIR}/${namespace}/"
 done
