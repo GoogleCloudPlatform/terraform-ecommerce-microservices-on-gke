@@ -57,7 +57,7 @@ resource "google_container_cluster" "my_cluster_usa" {
   }
   node_config {
     service_account = google_service_account.my_service_account.email
-    oauth_scopes    = [
+    oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
   }
@@ -78,7 +78,7 @@ resource "google_container_cluster" "my_cluster_canada" {
   }
   node_config {
     service_account = google_service_account.my_service_account.email
-    oauth_scopes    = [
+    oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
   }
@@ -99,7 +99,7 @@ resource "google_container_cluster" "my_cluster_config" {
   }
   node_config {
     service_account = google_service_account.my_service_account.email
-    oauth_scopes    = [
+    oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
   }
