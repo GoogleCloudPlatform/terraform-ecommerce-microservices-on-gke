@@ -30,9 +30,9 @@ wait_for_crd() {
 
   echo "Waiting for CRD ${CRD} to be created in cluster ${CLUSTER_CONTEXT}..."
   SECONDS_WAITED=0
-  IS_CRD_CREATED=$(kubectl --context "${CLUSTER_CONTEXT}" get crd/${CRD} -n=${NAMESPACE} 2>/dev/null)
-  while [[(${IS_CRD_CREATED} == "") && ${SECONDS_WAITED} -lt 60 ]]; do
-    IS_CRD_CREATED=$(kubectl --context "${CLUSTER_CONTEXT}" get crd/${CRD} -n=${NAMESPACE} 2>/dev/null)
+  IS_CRD_CREATED=$(kubectl --context "${CLUSTER_CONTEXT}" get "crd/${CRD}" -n="${NAMESPACE}" 2>/dev/null)
+  while [[ (${IS_CRD_CREATED} == "") && ${SECONDS_WAITED} -lt 60 ]]; do
+    IS_CRD_CREATED=$(kubectl --context "${CLUSTER_CONTEXT}" get "crd/${CRD}" -n="${NAMESPACE}" 2>/dev/null)
     sleep 1s
     SECONDS_WAITED=$((SECONDS_WAITED+1))
   done
@@ -54,7 +54,7 @@ kubectl --context="${CLUSTER_CONTEXT_CONFIG}" \
 
 # Deploy the redis-cart Service into the US cluster.
 # This redis-cart Service gets exported to the other clusters.
-wait_for_crd "serviceexports.net.gke.io" ${CLUSTER_CONTEXT_USA} "cartservice"
+wait_for_crd "serviceexports.net.gke.io" "${CLUSTER_CONTEXT_USA}" "cartservice"
 kubectl --context="${CLUSTER_CONTEXT_USA}" \
   apply -f "${K8S_MANIFESTS_DIR}/redis_cart/"
 
