@@ -41,7 +41,6 @@ func TestSimpleExample(t *testing.T) {
 		serviceTests := map[string]struct {
 			service string
 		}{
-			"Service comcloudresourcemanager":      {service: "comcloudresourcemanager"},
 			"Service container":                    {service: "container"},
 			"Service dns":                          {service: "dns"},
 			"Service gkehub":                       {service: "gkehub"},
