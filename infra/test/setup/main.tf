@@ -18,7 +18,7 @@ module "project" {
   source  = "terraform-google-modules/project-factory/google"
   version = "~> 14.0"
 
-  name              = "ci-ecommerce-microservices"
+  name              = "ci-ecomm-microservices"
   random_project_id = "true"
   org_id            = var.org_id
   folder_id         = var.folder_id
