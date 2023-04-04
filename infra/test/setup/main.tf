@@ -30,3 +30,9 @@ module "project" {
     "serviceusage.googleapis.com"
   ]
 }
+
+resource "google_compute_network" "vpc_network" {
+  project                 = module.project.project_id
+  name                    = "default"
+  auto_create_subnetworks = true
+}
