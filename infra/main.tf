@@ -22,12 +22,6 @@ provider "google-beta" {
   project = var.project_id
 }
 
-locals {
-  cluster_usa_name    = google_container_cluster.my_cluster_usa.name
-  cluster_canada_name = google_container_cluster.my_cluster_canada.name
-  cluster_config_name = google_container_cluster.my_cluster_config.name
-}
-
 module "enable_google_apis" {
   source                      = "terraform-google-modules/project-factory/google//modules/project_services"
   version                     = "~> 14.0"
