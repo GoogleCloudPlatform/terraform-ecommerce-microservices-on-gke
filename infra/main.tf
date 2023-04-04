@@ -42,6 +42,9 @@ module "enable_google_apis" {
 resource "google_service_account" "my_service_account" {
   account_id   = "my-service-account${var.resource_name_suffix}"
   display_name = "My Service Account"
+  depends_on = [
+    module.enable_google_apis
+  ]
 }
 
 resource "google_container_cluster" "my_cluster_usa" {
