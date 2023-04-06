@@ -38,9 +38,9 @@ wait_for_crd() {
   done
 
   if [[ ${IS_CRD_CREATED} ]]; then
-    echo "CRD ${CRD} has been created in cluster ${CLUSTER_CONTEXT}."
+    echo "CRD ${CRD} has been created in cluster ${CLUSTER_CONTEXT}. Waited ${SECONDS_WAITED}s."
   else
-    echo "Timed out! Waited too long for ${CRD} to be created in cluster ${CLUSTER_CONTEXT}."
+    echo "Timed out! Waited too long for ${CRD} to be created in cluster ${CLUSTER_CONTEXT}. Waited ${SECONDS_WAITED}s."
   fi
 }
 
