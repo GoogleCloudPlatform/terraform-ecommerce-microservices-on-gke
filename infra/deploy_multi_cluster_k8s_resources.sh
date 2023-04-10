@@ -17,11 +17,11 @@
 # Script parameters
 PROJECT_ID=$1
 RESOURCE_NAME_SUFFIX=$2
+K8S_MANIFESTS_DIR=$3
 
 CLUSTER_CONTEXT_CANADA=gke_${PROJECT_ID}_northamerica-northeast1_my-cluster-canada${RESOURCE_NAME_SUFFIX}
 CLUSTER_CONTEXT_CONFIG=gke_${PROJECT_ID}_us-west1_my-cluster-config${RESOURCE_NAME_SUFFIX}
 CLUSTER_CONTEXT_USA=gke_${PROJECT_ID}_us-west1_my-cluster-usa${RESOURCE_NAME_SUFFIX}
-K8S_MANIFESTS_DIR=../kubernetes_manifests
 
 wait_for_crd() {
   CRD=$1
@@ -38,9 +38,9 @@ wait_for_crd() {
   done
 
   if [[ ${IS_CRD_CREATED} ]]; then
-    echo "CRD ${CRD} has been created in cluster ${CLUSTER_CONTEXT}."
+    echo "CRD ${CRD} has been created in cluster ${CLUSTER_CONTEXT}. Waited ${SECONDS_WAITED}s."
   else
-    echo "Timed out! Waited too long for ${CRD} to be created in cluster ${CLUSTER_CONTEXT}."
+    echo "Timed out! Waited too long for ${CRD} to be created in cluster ${CLUSTER_CONTEXT}. Waited ${SECONDS_WAITED}s."
   fi
 }
 
