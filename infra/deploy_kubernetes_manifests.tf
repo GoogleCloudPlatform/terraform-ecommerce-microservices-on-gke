@@ -17,7 +17,7 @@
 resource "null_resource" "deploy_single_cluster_k8s_resources" {
   provisioner "local-exec" {
     interpreter = ["bash", "-exc"]
-    command     = "chmod +x deploy_single_cluster_k8s_resources.sh;./deploy_single_cluster_k8s_resources.sh ${var.project_id} ${var.resource_name_suffix}"
+    command     = "chmod +x ${path.module}/deploy_single_cluster_k8s_resources.sh;${path.module}/deploy_single_cluster_k8s_resources.sh ${var.project_id} ${var.resource_name_suffix} ${path.module}/../kubernetes_manifests"
   }
   depends_on = [
     resource.google_container_cluster.my_cluster_europe,
@@ -29,7 +29,7 @@ resource "null_resource" "deploy_single_cluster_k8s_resources" {
 resource "null_resource" "deploy_multi_cluster_k8s_resources" {
   provisioner "local-exec" {
     interpreter = ["bash", "-exc"]
-    command     = "chmod +x deploy_multi_cluster_k8s_resources.sh;./deploy_multi_cluster_k8s_resources.sh ${var.project_id} ${var.resource_name_suffix}"
+    command     = "chmod +x ${path.module}/deploy_multi_cluster_k8s_resources.sh;${path.module}/deploy_multi_cluster_k8s_resources.sh ${var.project_id} ${var.resource_name_suffix} ${path.module}/../kubernetes_manifests"
   }
   depends_on = [
     resource.google_project_iam_member.gke_mcs_importer_iam_binding,

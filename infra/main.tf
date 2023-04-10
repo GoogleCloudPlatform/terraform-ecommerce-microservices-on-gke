@@ -31,11 +31,20 @@ module "enable_google_apis" {
     "container.googleapis.com",
     "dns.googleapis.com",
     "gkehub.googleapis.com",
+    "iam.googleapis.com",
     "multiclusteringress.googleapis.com",
     "multiclusterservicediscovery.googleapis.com",
     "trafficdirector.googleapis.com",
   ]
   project_id = var.project_id
+}
+
+resource "google_service_account" "my_service_account" {
+  account_id   = "my-service-account${var.resource_name_suffix}"
+  display_name = "My Service Account"
+  depends_on = [
+    module.enable_google_apis
+  ]
 }
 
 resource "google_container_cluster" "my_cluster_usa" {
@@ -46,9 +55,20 @@ resource "google_container_cluster" "my_cluster_usa" {
   depends_on = [
     module.enable_google_apis
   ]
+  cluster_autoscaling {
+    auto_provisioning_defaults {
+      service_account = google_service_account.my_service_account.email
+    }
+  }
   # Need an empty ip_allocation_policy to overcome an error related to autopilot node pool constraints.
   # Workaround from https://github.com/hashicorp/terraform-provider-google/issues/10782#issuecomment-1024488630
   ip_allocation_policy {
+  }
+  node_config {
+    service_account = google_service_account.my_service_account.email
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/cloud-platform"
+    ]
   }
   provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
@@ -61,9 +81,20 @@ resource "google_container_cluster" "my_cluster_europe" {
   depends_on = [
     module.enable_google_apis
   ]
+  cluster_autoscaling {
+    auto_provisioning_defaults {
+      service_account = google_service_account.my_service_account.email
+    }
+  }
   # Need an empty ip_allocation_policy to overcome an error related to autopilot node pool constraints.
   # Workaround from https://github.com/hashicorp/terraform-provider-google/issues/10782#issuecomment-1024488630
   ip_allocation_policy {
+  }
+  node_config {
+    service_account = google_service_account.my_service_account.email
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/cloud-platform"
+    ]
   }
   provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
@@ -76,9 +107,20 @@ resource "google_container_cluster" "my_cluster_config" {
   depends_on = [
     module.enable_google_apis
   ]
+  cluster_autoscaling {
+    auto_provisioning_defaults {
+      service_account = google_service_account.my_service_account.email
+    }
+  }
   # Need an empty ip_allocation_policy to overcome an error related to autopilot node pool constraints.
   # Workaround from https://github.com/hashicorp/terraform-provider-google/issues/10782#issuecomment-1024488630
   ip_allocation_policy {
+  }
+  node_config {
+    service_account = google_service_account.my_service_account.email
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/cloud-platform"
+    ]
   }
   provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
