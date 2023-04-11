@@ -37,41 +37,40 @@ func TestSimpleExample(t *testing.T) {
 		projectId := example.GetTFSetupStringOutput("project_id")
 		deploymentIpAddr := example.GetStringOutput("deployment_ip_address")
 		deploymentUrl := fmt.Sprintf("http://%s", deploymentIpAddr)
-		testDeploymentUrl(assert, deploymentUrl)
+		testDeploymentUrl(t, assert, deploymentUrl)
 		testGoogleCloudApis(t, assert, projectId)
 	})
 
 	example.Test()
 }
 
-func testDeploymentUrl(assert *assert.Assertions, url string) error {
+func testDeploymentUrl(t *testing.T, assert *assert.Assertions, url string) error {
 	for attemptNum := 1; attemptNum <= 60; attemptNum++ {
 
-		// Make the GET request.
+		// Failed request.
 		response, err := http.Get(url)
 		if err != nil {
-			fmt.Printf("HTTP request error: %s", err)
-			return err
-		}
-		fmt.Printf("Made HTTP request to deployment URL. Response code: %d.\n", response.StatusCode)
+			t.Logf("Deployment URL HTTP request error: %s\n", err)
 
-		// If it's a 200, check the reponse body.
-		if 200 <= response.StatusCode && response.StatusCode <= 299 {
+		} else if 200 <= response.StatusCode && response.StatusCode <= 299 { // Got some 200 responses.
 			responseBody, err := ioutil.ReadAll(response.Body)
 			if err != nil {
 				return err
 			}
-			fmt.Printf(string(responseBody)) // TODO: Delete this line!
+			t.Logf(string(responseBody)) // TODO: Delete this line!
 			assert.Containsf(responseBody, "us-west1", "couldn't find text 'us-west1' in deployment's response")
 			assert.Containsf(responseBody, "Cymbal Shops", "Couldn't find text 'Cymbal Shops' in deployment's response")
 			return nil
+
+		} else { // Got a non-200 response.
+			t.Logf("Deployment URL responded with status code: %d.\n", response.StatusCode)
 		}
 
 		// Wait before retrying.
 		time.Sleep(4 * time.Second)
 	}
 
-	fmt.Printf("Waited too long for deployment URL.\n")
+	t.Logf("Waited too long for deployment URL.\n")
 	return nil
 }
 
