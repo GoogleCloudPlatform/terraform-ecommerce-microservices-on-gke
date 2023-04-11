@@ -35,7 +35,7 @@ func TestSimpleExample(t *testing.T) {
 
 	example.DefineVerify(func(assert *assert.Assertions) {
 		projectId := example.GetTFSetupStringOutput("project_id")
-		deploymentIpAddr := example.GetTFSetupStringOutput("deployment_ip_address")
+		deploymentIpAddr := example.GetStringOutput("deployment_ip_address")
 		deploymentUrl := fmt.Sprintf("http://%s", deploymentIpAddr)
 		testDeploymentUrl(assert, deploymentUrl)
 		testGoogleCloudApis(t, assert, projectId)
