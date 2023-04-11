@@ -57,9 +57,9 @@ func testDeploymentUrl(t *testing.T, assert *assert.Assertions, url string) erro
 			if err != nil {
 				return err
 			}
-			t.Logf(string(responseBody)) // TODO: Delete this line!
-			assert.Containsf(responseBody, "us-west1", "couldn't find text 'us-west1' in deployment's response")
-			assert.Containsf(responseBody, "Cymbal Shops", "Couldn't find text 'Cymbal Shops' in deployment's response")
+			responseBodyString := string(responseBody)
+			assert.Containsf(responseBodyString, "us-west1", "couldn't find text 'us-west1' in deployment's response")
+			assert.Containsf(responseBodyString, "Cymbal Shops", "Couldn't find text 'Cymbal Shops' in deployment's response")
 			return nil
 
 		} else { // Got a non-200 response.
