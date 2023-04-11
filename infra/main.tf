@@ -73,9 +73,9 @@ resource "google_container_cluster" "my_cluster_usa" {
   provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
 
-resource "google_container_cluster" "my_cluster_canada" {
-  name             = "my-cluster-canada${var.resource_name_suffix}"
-  location         = "northamerica-northeast1"
+resource "google_container_cluster" "my_cluster_europe" {
+  name             = "my-cluster-europe${var.resource_name_suffix}"
+  location         = "europe-west1"
   enable_autopilot = true
   project          = var.project_id
   depends_on = [

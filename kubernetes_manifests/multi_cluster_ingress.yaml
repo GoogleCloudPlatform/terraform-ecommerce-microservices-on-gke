@@ -29,7 +29,7 @@ spec:
         targetPort: 8080 # containerPort of the frontend Pods
   clusters:
   - link: "us-west1/my-cluster-usaRESOURCE_NAME_SUFFIX"
-  - link: "northamerica-northeast1/my-cluster-canadaRESOURCE_NAME_SUFFIX"
+  - link: "europe-west1/my-cluster-europeRESOURCE_NAME_SUFFIX"
 ---
 apiVersion: networking.gke.io/v1beta1
 kind: MultiClusterIngress
