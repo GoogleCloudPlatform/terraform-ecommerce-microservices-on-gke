@@ -18,3 +18,8 @@ output "deployment_ip_address" {
   description = "Public IP address of the deployment"
   value       = resource.google_compute_global_address.multi_cluster_ingress_ip_address.address
 }
+
+output "neos_toc_url" {
+  description = "Neos Tutorial URL"
+  value       = "https://console.cloud.google.com/products/solutions/deployments?walkthrough_id=solutions-in-console--ecommerce-gke--ecommerce-gke_tour"
+}
