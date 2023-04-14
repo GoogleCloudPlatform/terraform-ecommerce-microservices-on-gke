@@ -14,25 +14,18 @@
  * limitations under the License.
  */
 
-resource "null_resource" "deploy_single_cluster_k8s_resources" {
-  provisioner "local-exec" {
-    interpreter = ["bash", "-exc"]
-    command     = "chmod +x ${path.module}/deploy_single_cluster_k8s_resources.sh;${path.module}/deploy_single_cluster_k8s_resources.sh ${var.project_id} ${var.resource_name_suffix} ${path.module}/../kubernetes_manifests"
-  }
-  depends_on = [
-    resource.google_container_cluster.my_cluster_europe,
-    resource.google_container_cluster.my_cluster_config,
-    resource.google_container_cluster.my_cluster_usa,
-  ]
-}
+// Enable access to the configuration of the Google Cloud provider.
+data "google_client_config" "default" {}
 
-resource "null_resource" "deploy_multi_cluster_k8s_resources" {
-  provisioner "local-exec" {
-    interpreter = ["bash", "-exc"]
-    command     = "chmod +x ${path.module}/deploy_multi_cluster_k8s_resources.sh;${path.module}/deploy_multi_cluster_k8s_resources.sh ${var.project_id} ${var.resource_name_suffix} ${path.module}/../kubernetes_manifests"
-  }
-  depends_on = [
-    resource.google_project_iam_member.gke_mcs_importer_iam_binding,
-    resource.null_resource.deploy_single_cluster_k8s_resources,
-  ]
+// Deploy a Kubernetes Job to the config cluster.
+// That Job will deploy Kubernetes resources to all clusters.
+module "k8s_manifests_deployer_job" {
+  source               = "./modules/k8s_manifests_deployer_job"
+  project_id           = var.project_id
+  resource_name_suffix = var.resource_name_suffix
+  cluster_host         = "https://${resource.google_container_cluster.my_cluster_config.endpoint}"
+  cluster_token        = data.google_client_config.default.access_token
+  cluster_ca_certificate = base64decode(
+    resource.google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate,
+  )
 }
