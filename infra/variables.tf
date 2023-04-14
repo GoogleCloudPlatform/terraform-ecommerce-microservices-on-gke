@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
+variable "labels" {
+  type        = map(string)
+  default     = {}
+  description = "A set of key/value label pairs to assign to the resources deployed by this blueprint."
+}
+
 variable "project_id" {
   type        = string
-  description = "Google Cloud Project ID"
+  description = "The Google Cloud project ID."
 }
 
 variable "resource_name_suffix" {
   type        = string
   default     = "-1"
-  description = "Optional string added to the end of GCP resource names, allowing GCP project reuse"
+  description = "Optional string added to the end of resource names, allowing project reuse."
 }

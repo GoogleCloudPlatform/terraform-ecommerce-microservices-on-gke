@@ -52,6 +52,7 @@ resource "google_container_cluster" "my_cluster_usa" {
   location         = "us-west1"
   enable_autopilot = true
   project          = var.project_id
+  resource_labels  = var.labels
   depends_on = [
     module.enable_google_apis
   ]
@@ -78,6 +79,7 @@ resource "google_container_cluster" "my_cluster_europe" {
   location         = "europe-west1"
   enable_autopilot = true
   project          = var.project_id
+  resource_labels  = var.labels
   depends_on = [
     module.enable_google_apis
   ]
@@ -104,6 +106,7 @@ resource "google_container_cluster" "my_cluster_config" {
   location         = "us-west1"
   enable_autopilot = true
   project          = var.project_id
+  resource_labels  = var.labels
   depends_on = [
     module.enable_google_apis
   ]
