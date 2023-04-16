@@ -20,5 +20,5 @@ PROJECT_ID=$1
 RESOURCE_NAME_SUFFIX=$2
 K8S_MANIFESTS_DIR=$3
 
-./deploy_single_cluster_k8s_resources.sh $PROJECT_ID $RESOURCE_NAME_SUFFIX $K8S_MANIFESTS_DIR
-./deploy_multi_cluster_k8s_resources.sh $PROJECT_ID $RESOURCE_NAME_SUFFIX $K8S_MANIFESTS_DIR
+./deploy_single_cluster_k8s_resources.sh "${PROJECT_ID}" "${RESOURCE_NAME_SUFFIX}" "${K8S_MANIFESTS_DIR}"
+./deploy_multi_cluster_k8s_resources.sh "${PROJECT_ID}" "${RESOURCE_NAME_SUFFIX}" "${K8S_MANIFESTS_DIR}"
