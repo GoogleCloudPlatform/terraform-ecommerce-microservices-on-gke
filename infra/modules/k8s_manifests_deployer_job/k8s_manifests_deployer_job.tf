@@ -25,6 +25,16 @@ locals {
   google_service_account_id = "k8s-manifests-deployer${var.resource_name_suffix}"
 }
 
+module "enable_iam_google_api" {
+  source                      = "terraform-google-modules/project-factory/google//modules/project_services"
+  version                     = "~> 14.0"
+  disable_services_on_destroy = false
+  activate_apis = [
+    "iam.googleapis.com",
+  ]
+  project_id = var.project_id
+}
+
 // Connect a Kubernetes provider to the cluster.
 provider "kubernetes" {
   host                   = var.cluster_host
@@ -100,6 +110,9 @@ resource "google_service_account" "kubernetes_manifests_deployer_service_account
   project      = var.project_id
   account_id   = local.google_service_account_id
   display_name = "Kubernetes Manifests Deployer"
+  depends_on = [
+    module.enable_iam_google_api
+  ]
 }
 
 // The Google Cloud Service Account needs to administer Kubernetes resource in all clusters.
