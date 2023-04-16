@@ -128,6 +128,6 @@ resource "google_service_account_iam_member" "allow_kubernetes_sa_to_impersonate
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[${var.kubernetes_namespace}/${local.k8s_service_account_name}]"
   depends_on = [
-    module.kubernetes_service_account.kubernetes_manifests_deployer_service_account
+    kubernetes_service_account.kubernetes_manifests_deployer_service_account
   ]
 }
