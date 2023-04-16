@@ -28,4 +28,7 @@ module "k8s_manifests_deployer_job" {
   cluster_ca_certificate = base64decode(
     resource.google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate,
   )
+  depends_on = [
+    module.enable_google_apis
+  ]
 }
