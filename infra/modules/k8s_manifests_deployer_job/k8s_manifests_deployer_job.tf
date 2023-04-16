@@ -84,7 +84,7 @@ resource "kubernetes_job" "kubernetes_manifests_deployer_job" {
   }
   wait_for_completion = true
   timeouts {
-    create = "180s"
+    create = "600s"
   }
   depends_on = [
     google_project_iam_member.google_service_account_is_kubernetes_admin,
