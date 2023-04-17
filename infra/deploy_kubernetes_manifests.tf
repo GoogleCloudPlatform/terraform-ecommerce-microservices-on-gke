@@ -28,10 +28,10 @@ data "google_client_config" "default" {}
 
 // Connect a Kubernetes provider to the config cluster.
 provider "kubernetes" {
-  load_config_file       = "false"
   host                   = "https://${google_container_cluster.my_cluster_config.endpoint}"
-  token                  = data.google_client_config.default.access_token
+  client_certificate     = base64decode(google_container_cluster.my_cluster_config.master_auth[0].client_certificate)
   cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate)
+  client_key             = base64decode(google_container_cluster.my_cluster_config.master_auth[0].client_key)
   alias                  = "kubernetes_provider"
 }
 
@@ -60,11 +60,11 @@ resource "kubernetes_job" "kubernetes_manifests_deployer_job" {
             value = var.resource_name_suffix
           }
           resources {
-            limits {
+            limits = {
               cpu    = "250m"
               memory = "128Mi"
             }
-            requests {
+            requests = {
               cpu    = "100m"
               memory = "64Mi"
             }
