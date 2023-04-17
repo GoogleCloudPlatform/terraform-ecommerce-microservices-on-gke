@@ -30,7 +30,7 @@ data "google_client_config" "default" {}
 provider "kubernetes" {
   host                   = "https://${google_container_cluster.my_cluster_config.endpoint}"
   token                  = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].client_certificate)
+  cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate)
   alias                  = "kubernetes_provider"
 }
 
