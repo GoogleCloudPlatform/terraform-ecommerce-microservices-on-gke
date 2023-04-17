@@ -24,9 +24,15 @@ variable "cluster_ca_certificate" {
   sensitive   = true
 }
 
-variable "cluster_token" {
+variable "cluster_client_certificate" {
   type        = string
-  description = "Token used by the 'kubernetes' Terraform provider to authenticate to the cluster"
+  description = "Client certificate used by the 'kubernetes' Terraform provider for TLS authentication"
+  sensitive   = true
+}
+
+variable "cluster_client_key" {
+  type        = string
+  description = "Client key used by the 'kubernetes' Terraform provider for TLS authentication"
   sensitive   = true
 }
 

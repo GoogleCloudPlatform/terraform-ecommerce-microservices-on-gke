@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-// Enable access to the configuration of the Google Cloud provider.
-data "google_client_config" "default" {}
-
 // Deploy a Kubernetes Job to the config cluster.
 // That Job will deploy Kubernetes resources to all clusters.
 module "k8s_manifests_deployer_job" {
-  source               = "./modules/k8s_manifests_deployer_job"
-  project_id           = var.project_id
-  resource_name_suffix = var.resource_name_suffix
-  cluster_host         = "https://${resource.google_container_cluster.my_cluster_config.endpoint}"
-  cluster_token        = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(
-    resource.google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate,
-  )
+  source                     = "./modules/k8s_manifests_deployer_job"
+  project_id                 = var.project_id
+  resource_name_suffix       = var.resource_name_suffix
+  cluster_host               = "https://${google_container_cluster.my_cluster_config.endpoint}"
+  cluster_ca_certificate     = base64decode(google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate)
+  cluster_client_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].client_certificate)
+  cluster_client_key         = base64decode(google_container_cluster.my_cluster_config.master_auth[0].client_key)
 }
