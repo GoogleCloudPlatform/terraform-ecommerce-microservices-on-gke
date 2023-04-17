@@ -38,8 +38,9 @@ module "enable_iam_google_api" {
 // Connect a Kubernetes provider to the cluster.
 provider "kubernetes" {
   host                   = var.cluster_host
-  token                  = var.cluster_token
+  client_certificate     = var.cluster_certificate
   cluster_ca_certificate = var.cluster_ca_certificate
+  client_key             = var.cluster_client_key
   alias                  = "kubernetes_provider"
 }
 
