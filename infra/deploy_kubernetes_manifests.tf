@@ -28,7 +28,6 @@ data "google_client_config" "default" {}
 
 // Connect a Kubernetes provider to the config cluster.
 provider "kubernetes" {
-  load_config_file       = "false"
   host                   = "https://${google_container_cluster.my_cluster_config.endpoint}"
   token                  = data.google_client_config.default.access_token
   cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].client_certificate)
