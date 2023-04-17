@@ -31,14 +31,14 @@ locals {
   google_service_account_id = "k8s-manifests-deployer${var.resource_name_suffix}"
 }
 
+// Enable access to the configuration of the Google Cloud provider.
+data "google_client_config" "default" {}
+
 // Connect a Kubernetes provider to the config cluster.
 provider "kubernetes" {
   host                   = "https://${google_container_cluster.my_cluster_config.endpoint}"
-  username               = google_container_cluster.my_cluster_config.master_auth.0.username
-  password               = google_container_cluster.my_cluster_config.master_auth.0.password
-  client_certificate     = base64decode(google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate)
+  token                  = data.google_client_config.default.access_token
   cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].client_certificate)
-  client_key             = base64decode(google_container_cluster.my_cluster_config.master_auth[0].client_key)
   alias                  = "kubernetes_provider"
 }
 
