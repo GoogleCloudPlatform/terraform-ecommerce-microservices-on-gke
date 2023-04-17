@@ -23,9 +23,6 @@ locals {
   google_service_account_id = "k8s-manifests-deployer${var.resource_name_suffix}"
 }
 
-// Enable access to the configuration of the Google Cloud provider.
-data "google_client_config" "default" {}
-
 // Connect a Kubernetes provider to the config cluster.
 provider "kubernetes" {
   host                   = "https://${google_container_cluster.my_cluster_config.endpoint}"
