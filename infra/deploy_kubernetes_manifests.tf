@@ -40,7 +40,7 @@ resource "kubernetes_job" "kubernetes_manifests_deployer_job" {
   provider = kubernetes.kubernetes_provider
   metadata {
     name      = "kubernetes-manifests-deployer-job"
-    namespace = var.k8s_deployer_namespace
+    namespace = local.k8s_deployer_namespace
   }
   spec {
     completions = 1
@@ -90,7 +90,7 @@ resource "kubernetes_service_account" "kubernetes_manifests_deployer_service_acc
   provider = kubernetes.kubernetes_provider
   metadata {
     name      = local.k8s_service_account_name
-    namespace = var.k8s_deployer_namespace
+    namespace = local.k8s_deployer_namespace
     annotations = {
       "iam.gke.io/gcp-service-account" = google_service_account.kubernetes_manifests_deployer_service_account.email
     }
@@ -118,7 +118,7 @@ resource "google_project_iam_member" "google_service_account_is_kubernetes_admin
 resource "google_service_account_iam_member" "allow_kubernetes_sa_to_impersonate_google_cloud_sa" {
   service_account_id = google_service_account.kubernetes_manifests_deployer_service_account.name
   role               = "roles/iam.workloadIdentityUser"
-  member             = "serviceAccount:${var.project_id}.svc.id.goog[${var.k8s_deployer_namespace}/${local.k8s_service_account_name}]"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[${local.k8s_deployer_namespace}/${local.k8s_service_account_name}]"
   depends_on = [
     kubernetes_service_account.kubernetes_manifests_deployer_service_account
   ]
