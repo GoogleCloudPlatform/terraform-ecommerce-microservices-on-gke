@@ -59,16 +59,6 @@ resource "kubernetes_job" "kubernetes_manifests_deployer_job" {
             name  = "RESOURCE_NAME_SUFFIX"
             value = var.resource_name_suffix
           }
-          resources {
-            limits = {
-              cpu    = "250m"
-              memory = "128Mi"
-            }
-            requests = {
-              cpu    = "100m"
-              memory = "64Mi"
-            }
-          }
         }
         restart_policy = "Never"
       }
