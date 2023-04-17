@@ -33,12 +33,10 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate)
   client_key             = base64decode(google_container_cluster.my_cluster_config.master_auth[0].client_key)
   token                  = data.google_client_config.default.access_token
-  alias                  = "kubernetes_provider"
 }
 
 // Kubernetes (K8s) Job inside the cluser that deploys K8s resources to all clusters.
 resource "kubernetes_job" "kubernetes_manifests_deployer_job" {
-  provider = kubernetes.kubernetes_provider
   metadata {
     name      = "kubernetes-manifests-deployer-job"
     namespace = local.k8s_deployer_namespace
@@ -88,7 +86,6 @@ resource "kubernetes_job" "kubernetes_manifests_deployer_job" {
 
 // Kubernetes Service Account (different from the Google Cloud Service Account).
 resource "kubernetes_service_account" "kubernetes_manifests_deployer_service_account" {
-  provider = kubernetes.kubernetes_provider
   metadata {
     name      = local.k8s_service_account_name
     namespace = local.k8s_deployer_namespace
