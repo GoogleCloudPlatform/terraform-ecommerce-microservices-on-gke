@@ -26,13 +26,27 @@ locals {
 // Enable access to the configuration of the Google Cloud provider.
 data "google_client_config" "default" {}
 
-// Connect a Kubernetes provider to the config cluster.
-provider "kubernetes" {
-  host                   = "https://${google_container_cluster.my_cluster_config.endpoint}"
-  client_certificate     = base64decode(google_container_cluster.my_cluster_config.master_auth[0].client_certificate)
-  cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate)
-  client_key             = base64decode(google_container_cluster.my_cluster_config.master_auth[0].client_key)
-  token                  = data.google_client_config.default.access_token
+// Recreate the existing kubernetes_provider.tf file so that the
+// credentials to the cluster are hard-coded.
+data "template_file" "kubernetes_provider" {
+  template = file("${path.module}/kubernetes_provider.tf.template")
+  vars = {
+    cluster_host           = "https://${google_container_cluster.my_cluster_config.endpoint}"
+    cluster_token          = data.google_client_config.default.access_token
+    cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate)
+  }
+}
+resource "local_sensitive_file" "kubernetes_provider" {
+  content  = data.template_file.kubernetes_provider.rendered
+  filename = "${path.module}/kubernetes_provider.tf"
+  lifecycle {
+    ignore_changes = [
+      content,
+      filename,
+      directory_permission,
+      file_permission,
+    ]
+  }
 }
 
 // Kubernetes (K8s) Job inside the cluser that deploys K8s resources to all clusters.
