@@ -32,7 +32,7 @@ data "template_file" "helm_provider" {
 }
 resource "local_sensitive_file" "helm_provider" {
   content  = data.template_file.helm_provider.rendered
-  filename = "${path.module}/helm_provider.tf.output"
+  filename = "${path.module}/helm_provider.tf"
   lifecycle {
     ignore_changes = [
       content,
