@@ -17,12 +17,33 @@
 // Enable access to the configuration of the Google Cloud provider.
 data "google_client_config" "default" {}
 
-provider "helm" {
-  kubernetes {
-    host                   = "https://${google_container_cluster.my_cluster_config.endpoint}"
-    token                  = data.google_client_config.default.access_token
+// Recreate the existing helm_provider.tf file so that the
+// credentials to the cluster are hard-coded.
+data "template_file" "helm_provider" {
+  template = file("${path.module}/helm_provider.tf.template")
+  vars = {
+    cluster_host           = "https://${google_container_cluster.my_cluster_config.endpoint}"
+    cluster_token          = data.google_client_config.default.access_token
     cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate)
   }
+  depends_on = [
+    google_container_cluster.my_cluster_config
+  ]
+}
+resource "local_sensitive_file" "helm_provider" {
+  content  = data.template_file.helm_provider.rendered
+  filename = "${path.module}/helm_provider.tf.output"
+  lifecycle {
+    ignore_changes = [
+      content,
+      filename,
+      directory_permission,
+      file_permission,
+    ]
+  }
+  depends_on = [
+    google_container_cluster.my_cluster_config
+  ]
 }
 
 resource "helm_release" "helm_chart_multi_cluster_ingress" {
