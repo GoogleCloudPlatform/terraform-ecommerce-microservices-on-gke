@@ -26,8 +26,9 @@ provider "helm" {
 }
 
 resource "helm_release" "helm_chart_multi_cluster_ingress" {
-  name  = "helm-chart-multi-cluster-ingress"
-  chart = "${path.module}/helm_chart_multi_cluster_ingress"
+  name      = "helm-chart-multi-cluster-ingress"
+  chart     = "${path.module}/helm_chart_multi_cluster_ingress"
+  namespace = "frontend"
   set {
     name  = "projectId"
     value = var.project_id
