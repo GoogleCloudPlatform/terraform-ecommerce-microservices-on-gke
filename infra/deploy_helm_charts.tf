@@ -37,6 +37,6 @@ resource "helm_release" "helm_chart_multi_cluster_ingress" {
     value = var.resource_name_suffix
   }
   depends_on = [
-    null_resource.deploy_multi_cluster_k8s_resources # This allows use to wait for the MCI CRDs.
+    null_resource.deploy_multi_cluster_k8s_resources # This allows us to wait for the MCI CRDs.
   ]
 }
