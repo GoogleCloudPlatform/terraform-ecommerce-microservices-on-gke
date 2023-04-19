@@ -17,6 +17,12 @@ kind: MultiClusterService
 metadata:
   name: frontend-multi-cluster-service
   namespace: frontend
+  # These Helm-related Annotations/Labels allow the Helm (inside Terraform) to control this resource.
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    meta.helm.sh/release-name: helm-chart-multi-cluster-ingress
+    meta.helm.sh/release-namespace: frontend
 spec:
   template:
     spec:
@@ -36,7 +42,12 @@ kind: MultiClusterIngress
 metadata:
   name: frontend-multi-cluster-ingress
   namespace: frontend
+  # These Helm-related Annotations/Labels allow the Helm (inside Terraform) to control this resource.
+  labels:
+    app.kubernetes.io/managed-by: Helm
   annotations:
+    meta.helm.sh/release-name: helm-chart-multi-cluster-ingress
+    meta.helm.sh/release-namespace: frontend
     networking.gke.io/static-ip: https://www.googleapis.com/compute/v1/projects/PROJECT_ID/global/addresses/multi-cluster-ingress-ip-address
 spec:
   template:
