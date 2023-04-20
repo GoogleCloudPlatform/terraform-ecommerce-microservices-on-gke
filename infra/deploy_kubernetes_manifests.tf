@@ -23,9 +23,6 @@ locals {
   google_service_account_id = "k8s-manifests-deployer${var.resource_name_suffix}"
 }
 
-// Enable access to the configuration of the Google Cloud provider.
-data "google_client_config" "default" {}
-
 // Recreate the existing kubernetes_provider.tf file so that the
 // credentials to the cluster are hard-coded.
 data "template_file" "kubernetes_provider" {
