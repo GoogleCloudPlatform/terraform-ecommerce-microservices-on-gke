@@ -108,7 +108,8 @@ resource "google_container_cluster" "my_cluster_config" {
   project          = var.project_id
   resource_labels  = var.labels
   depends_on = [
-    module.enable_google_apis
+    module.enable_google_apis,
+    google_gke_hub_feature.multi_cluster_ingress_feature
   ]
   cluster_autoscaling {
     auto_provisioning_defaults {

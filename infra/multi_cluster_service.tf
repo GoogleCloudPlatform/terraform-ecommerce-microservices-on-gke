@@ -39,7 +39,7 @@ resource "google_gke_hub_feature" "multi_cluster_ingress_feature" {
   project  = var.project_id
   spec {
     multiclusteringress {
-      config_membership = google_gke_hub_membership.my_fleet_membership_config.id
+      config_membership = "my-fleet-membership-config${var.resource_name_suffix}"
     }
   }
   provider = google-beta
