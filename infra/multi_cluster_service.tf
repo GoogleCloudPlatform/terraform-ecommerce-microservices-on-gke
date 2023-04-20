@@ -42,6 +42,9 @@ resource "google_gke_hub_feature" "multi_cluster_ingress_feature" {
       config_membership = "my-fleet-membership-config${var.resource_name_suffix}"
     }
   }
+  depends_on = [
+    module.enable_google_apis
+  ]
   provider = google-beta
 }
 
