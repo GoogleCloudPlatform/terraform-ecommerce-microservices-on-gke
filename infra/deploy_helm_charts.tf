@@ -59,6 +59,14 @@ resource "helm_release" "helm_chart_multi_cluster_ingress" {
     value = var.resource_name_suffix
   }
   depends_on = [
-    null_resource.deploy_multi_cluster_k8s_resources # This allows us to wait for the MCI CRDs.
+    null_resource.deploy_multi_cluster_k8s_resources, # This allows us to wait for the MCI CRDs.
+    time_sleep.wait_after_destroying_mci_k8s_and_before_destroying_mci_feature
+  ]
+}
+
+resource "time_sleep" "wait_after_destroying_mci_k8s_and_before_destroying_mci_feature" {
+  destroy_duration = "300s"
+  depends_on = [
+    google_gke_hub_feature.multi_cluster_ingress_feature
   ]
 }
