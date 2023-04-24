@@ -25,7 +25,7 @@ resource "google_project_iam_member" "my_service_account_role_network_viewer" {
 
 resource "google_compute_global_address" "multi_cluster_ingress_ip_address" {
   provider     = google-beta
-  name         = "multi-cluster-ingress-ip-address"
+  name         = "multi-cluster-ingress-ip-address${var.resource_name_suffix}"
   address_type = "EXTERNAL"
   project      = var.project_id
   depends_on = [

@@ -37,7 +37,7 @@ metadata:
   name: frontend-multi-cluster-ingress
   namespace: frontend
   annotations:
-    networking.gke.io/static-ip: https://www.googleapis.com/compute/v1/projects/{{ .Values.projectId }}/global/addresses/multi-cluster-ingress-ip-address
+    networking.gke.io/static-ip: https://www.googleapis.com/compute/v1/projects/{{ .Values.projectId }}/global/addresses/multi-cluster-ingress-ip-address{{ .Values.resourceNameSuffix }}
 spec:
   template:
     spec:

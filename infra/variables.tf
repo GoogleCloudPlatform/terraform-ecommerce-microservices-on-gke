@@ -28,5 +28,9 @@ variable "project_id" {
 variable "resource_name_suffix" {
   type        = string
   default     = "-1"
-  description = "Optional string added to the end of resource names, allowing project reuse."
+  description = <<EOT
+  Optional string added to the end of resource names, allowing project reuse.
+  This should be short and only contain dashes, lowercase letters, and digits.
+  It shoud not end with a dash.
+  EOT
 }
