@@ -60,7 +60,7 @@ resource "kubernetes_job" "kubernetes_manifests_deployer_job" {
         service_account_name = local.k8s_service_account_name
         container {
           name  = "kubernetes-manifests-deployer"
-          image = "us-docker.pkg.dev/google-samples/containers/gke/kubernetes-manifests-deployer:v0.0.0.0"
+          image = "us-docker.pkg.dev/google-samples/containers/gke/kubernetes-manifests-deployer:v0.0.0.1"
           env {
             name  = "PROJECT_ID"
             value = var.project_id
