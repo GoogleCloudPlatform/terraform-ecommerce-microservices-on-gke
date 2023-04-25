@@ -29,7 +29,6 @@ data "template_file" "kubernetes_provider" {
   template = file("${path.module}/kubernetes_provider.tf.template")
   vars = {
     cluster_host           = "https://${google_container_cluster.my_cluster_config.endpoint}"
-    cluster_token          = data.google_client_config.default.access_token
     cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate)
   }
 }
