@@ -88,9 +88,11 @@ resource "kubernetes_job" "kubernetes_manifests_deployer_job" {
     create = "600s"
   }
   depends_on = [
+    google_container_cluster.my_cluster_europe,
+    google_container_cluster.my_cluster_usa,
     google_project_iam_member.google_service_account_is_kubernetes_admin,
     google_service_account_iam_member.allow_kubernetes_sa_to_impersonate_google_cloud_sa,
-    kubernetes_service_account.kubernetes_manifests_deployer_service_account
+    kubernetes_service_account.kubernetes_manifests_deployer_service_account,
   ]
 }
 
