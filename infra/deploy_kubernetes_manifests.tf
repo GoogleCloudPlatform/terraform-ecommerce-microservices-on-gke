@@ -103,6 +103,9 @@ resource "kubernetes_service_account" "kubernetes_manifests_deployer_service_acc
       "iam.gke.io/gcp-service-account" = google_service_account.kubernetes_manifests_deployer_service_account.email
     }
   }
+  depends_on = [
+    google_container_cluster.my_cluster_config
+  ]
 }
 
 // The Google Cloud Service Account.
