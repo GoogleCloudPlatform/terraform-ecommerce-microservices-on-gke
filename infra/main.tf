@@ -67,9 +67,6 @@ resource "google_container_cluster" "my_cluster_usa" {
   }
   node_config {
     service_account = google_service_account.my_service_account.email
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform"
-    ]
   }
   provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
@@ -94,9 +91,6 @@ resource "google_container_cluster" "my_cluster_europe" {
   }
   node_config {
     service_account = google_service_account.my_service_account.email
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform"
-    ]
   }
   provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
@@ -121,9 +115,6 @@ resource "google_container_cluster" "my_cluster_config" {
   }
   node_config {
     service_account = google_service_account.my_service_account.email
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/cloud-platform"
-    ]
   }
   provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }

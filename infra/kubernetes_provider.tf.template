@@ -16,7 +16,7 @@
 
 provider "kubernetes" {
   host                   = "${cluster_host}"
-  token                  = "${cluster_token}"
+  token                  = data.google_client_config.default.access_token
   cluster_ca_certificate = <<MyDelimiterWordForMultiLineString
 ${cluster_ca_certificate}
 MyDelimiterWordForMultiLineString
