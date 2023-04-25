@@ -29,7 +29,6 @@ data "template_file" "kubernetes_provider" {
   template = file("${path.module}/kubernetes_provider.tf.template")
   vars = {
     cluster_host           = "https://${google_container_cluster.my_cluster_config.endpoint}"
-    cluster_token          = data.google_client_config.default.access_token
     cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate)
   }
 }
@@ -104,6 +103,9 @@ resource "kubernetes_service_account" "kubernetes_manifests_deployer_service_acc
       "iam.gke.io/gcp-service-account" = google_service_account.kubernetes_manifests_deployer_service_account.email
     }
   }
+  depends_on = [
+    google_container_cluster.my_cluster_config
+  ]
 }
 
 // The Google Cloud Service Account.
