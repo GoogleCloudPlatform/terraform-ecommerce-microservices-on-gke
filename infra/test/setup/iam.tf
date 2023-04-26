@@ -16,7 +16,13 @@
 
 locals {
   int_required_roles = [
-    "roles/owner"
+    "roles/compute.networkAdmin",
+    "roles/container.admin",
+    "roles/gkehub.editor",
+    "roles/iam.serviceAccountAdmin",
+    "roles/iam.serviceAccountUser",
+    "roles/resourcemanager.projectIamAdmin",
+    "roles/serviceusage.serviceUsageAdmin",
   ]
 }
 
