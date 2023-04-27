@@ -52,12 +52,12 @@ resource "kubernetes_job" "kubernetes_manifests_deployer_job" {
     namespace = local.k8s_deployer_namespace
   }
   spec {
-    completions = 1
+    backoff_limit = 6
+    completions   = 1
     template {
       metadata {}
       spec {
         service_account_name = local.k8s_service_account_name
-        backoff_limit        = 6
         container {
           name  = "kubernetes-manifests-deployer"
           image = "us-docker.pkg.dev/google-samples/containers/gke/kubernetes-manifests-deployer:v0.0.0.1"
