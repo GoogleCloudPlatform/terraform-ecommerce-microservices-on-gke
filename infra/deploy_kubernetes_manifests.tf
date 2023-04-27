@@ -52,7 +52,8 @@ resource "kubernetes_job" "kubernetes_manifests_deployer_job" {
     namespace = local.k8s_deployer_namespace
   }
   spec {
-    completions = 1
+    backoff_limit = 6
+    completions   = 1
     template {
       metadata {}
       spec {
