@@ -63,6 +63,6 @@ sed -i "s/redis-cart.cartservice:6379/redis-cart.cartservice.svc.clusterset.loca
   "${K8S_MANIFESTS_DIR}/cartservice/cartservice.yaml"
 kubectl --context="${CLUSTER_CONTEXT_EUROPE}" \
   "${K8S_MANIFESTS_DIR}/cartservice/cartservice.yaml"
-kubectl --context="${CLUSTER_CONTEXT_CANADA}" \
+kubectl --context="${CLUSTER_CONTEXT_EUROPE}" \
   --namespace=cartservice \
   apply -f "${K8S_MANIFESTS_DIR}/cartservice/cartservice.yaml"
