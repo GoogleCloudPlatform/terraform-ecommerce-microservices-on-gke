@@ -16,7 +16,7 @@ The following is a description of what's deployed by this solution:
 
 To learn more about the deployed infrastructure, read the [solution guide on cloud.google.com](https://cloud.google.com/architecture/application-development/ecommerce-microservices).
 
-## How to deploy
+## Deploy this solution
 
 The best way to deploy this solution is through the [Jump Start Solutions page](https://cloud.google.com/products/solutions/details/ecomm-microservices) on Google Cloud Console. But if you specifically want to deploy the Terraform inside this git branch or commit, follow the instructions below.
 
