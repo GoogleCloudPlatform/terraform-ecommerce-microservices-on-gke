@@ -22,7 +22,7 @@ The best way to deploy this solution is through the [Jump Start Solutions page](
 
 ### Prerequisites
 
-* Your environment will need:
+* A terminal environment with the following CLI tools available:
   * `terraform`
   * `gcloud`
 * **Do not** deploy this solution into a Google Cloud project that's already using [Multi Cluster Ingress](https://cloud.google.com/kubernetes-engine/docs/concepts/multi-cluster-ingress#architecture).
