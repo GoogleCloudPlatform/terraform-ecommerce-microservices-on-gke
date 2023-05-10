@@ -1,6 +1,6 @@
 # terraform-ecommerce-microservices-on-gke
 
-This GitHub repository contains the Terraform and Kubernetes YAML used by Google Cloud Jump Start Solution, [_Ecommerce web app deployed on Kubernetes_](https://cloud.google.com/products/solutions/details/ecomm-microservices).
+This GitHub repository contains the Terraform and Kubernetes YAML used by the Jump Start Solution (JSS) entitled [_Ecommerce web app deployed on Kubernetes_](https://cloud.google.com/products/solutions/details/ecomm-microservices), available on Google Cloud.
 
 The [Deploy this solution](#deploy-this-solution) section below contains a brief summary of how you can deploy this solution to your Google Cloud project. For more detailed instructions including troubleshooting guidance, see the [solution guide](https://cloud.google.com/architecture/application-development/ecommerce-microservices).
 
