@@ -18,7 +18,7 @@ To learn more about the deployed infrastructure, read the [solution guide on clo
 
 ## Deploy this solution
 
-The best way to deploy this solution is through the [Jump Start Solutions page](https://cloud.google.com/products/solutions/details/ecomm-microservices) on Google Cloud Console. But if you specifically want to deploy the Terraform inside this git branch or commit, follow the instructions below.
+The best way to deploy this solution is through the [Jump Start Solutions page](https://console.cloud.google.com/products/solutions/details/ecomm-microservices) on Google Cloud Console. But if you specifically want to deploy the Terraform inside this git branch or commit, follow the instructions below.
 
 ### Prerequisites
 
