@@ -29,5 +29,21 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = ">= 2.19.0"
     }
+    time = {
+      source  = "hashicorp/time"
+      version = ">= 0.9"
+    }
+    template = {
+      source  = "hashicorp/template"
+      version = ">=2.2"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = ">=2.4"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+      version = ">=2.9"
+    }
   }
 }

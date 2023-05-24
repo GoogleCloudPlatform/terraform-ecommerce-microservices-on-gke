@@ -43,7 +43,7 @@ spec:
                 - ALL
             privileged: false
             readOnlyRootFilesystem: true
-          image: gcr.io/google-samples/microservices-demo/frontend:v0.5.2
+          image: gcr.io/google-samples/microservices-demo/frontend:v0.7.0
           ports:
           - containerPort: 8080
           readinessProbe:
@@ -83,6 +83,8 @@ spec:
             value: "0"
           - name: CYMBAL_BRANDING
             value: "true"
+          - name: FRONTEND_MESSAGE
+            value: ""
           resources:
             requests:
               cpu: 100m
