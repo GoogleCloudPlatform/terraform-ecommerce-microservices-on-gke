@@ -47,6 +47,12 @@ module "enable_multi_cluster_google_apis" {
   project_id = var.project_id
 }
 
+resource "google_compute_network" "my_vpc_network" {
+  project                 = module.project.project_id
+  name                    = "my-vpc-network${var.resource_name_suffix}"
+  auto_create_subnetworks = true
+}
+
 # Assign a custom service account to the 3 GKE clusters
 # because some users' projects will not have the default Compute Engine service account enabled.
 resource "google_service_account" "my_service_account" {
@@ -63,6 +69,7 @@ resource "google_container_cluster" "my_cluster_usa" {
   enable_autopilot = true
   project          = var.project_id
   resource_labels  = var.labels
+  network          = google_compute_network.my_vpc_network
   depends_on = [
     module.enable_base_google_apis
   ]
@@ -84,6 +91,7 @@ resource "google_container_cluster" "my_cluster_europe" {
   enable_autopilot = true
   project          = var.project_id
   resource_labels  = var.labels
+  network          = google_compute_network.my_vpc_network
   depends_on = [
     module.enable_base_google_apis
   ]
@@ -105,6 +113,7 @@ resource "google_container_cluster" "my_cluster_config" {
   enable_autopilot = true
   project          = var.project_id
   resource_labels  = var.labels
+  network          = google_compute_network.my_vpc_network
   depends_on = [
     module.enable_base_google_apis
   ]
