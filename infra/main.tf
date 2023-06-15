@@ -69,7 +69,7 @@ resource "google_container_cluster" "my_cluster_usa" {
   enable_autopilot = true
   project          = var.project_id
   resource_labels  = var.labels
-  network          = google_compute_network.my_vpc_network
+  network          = google_compute_network.my_vpc_network.name
   depends_on = [
     module.enable_base_google_apis
   ]
@@ -91,7 +91,7 @@ resource "google_container_cluster" "my_cluster_europe" {
   enable_autopilot = true
   project          = var.project_id
   resource_labels  = var.labels
-  network          = google_compute_network.my_vpc_network
+  network          = google_compute_network.my_vpc_network.name
   depends_on = [
     module.enable_base_google_apis
   ]
@@ -113,7 +113,7 @@ resource "google_container_cluster" "my_cluster_config" {
   enable_autopilot = true
   project          = var.project_id
   resource_labels  = var.labels
-  network          = google_compute_network.my_vpc_network
+  network          = google_compute_network.my_vpc_network.name
   depends_on = [
     module.enable_base_google_apis
   ]
