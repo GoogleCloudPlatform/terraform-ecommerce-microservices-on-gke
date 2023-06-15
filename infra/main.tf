@@ -48,7 +48,7 @@ module "enable_multi_cluster_google_apis" {
 }
 
 resource "google_compute_network" "my_vpc_network" {
-  project                 = module.project.project_id
+  project                 = var.project_id
   name                    = "my-vpc-network${var.resource_name_suffix}"
   auto_create_subnetworks = true
 }
