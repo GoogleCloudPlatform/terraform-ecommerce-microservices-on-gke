@@ -34,6 +34,7 @@ func TestSimpleExample(t *testing.T) {
 	example := tft.NewTFBlueprintTest(t)
 
 	example.DefineVerify(func(assert *assert.Assertions) {
+		example.DefaultVerify(assert)
 		projectId := example.GetTFSetupStringOutput("project_id")
 		deploymentIpAddr := example.GetStringOutput("deployment_ip_address")
 		deploymentUrl := fmt.Sprintf("http://%s", deploymentIpAddr)
