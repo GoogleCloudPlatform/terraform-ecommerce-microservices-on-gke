@@ -14,15 +14,6 @@
  * limitations under the License.
  */
 
-resource "google_project_iam_member" "my_service_account_role_network_viewer" {
-  project = var.project_id
-  role    = "roles/compute.networkViewer"
-  member  = "serviceAccount:${google_service_account.my_service_account.email}"
-  depends_on = [
-    module.enable_google_apis
-  ]
-}
-
 resource "google_compute_global_address" "multi_cluster_ingress_ip_address" {
   provider     = google-beta
   name         = "multi-cluster-ingress-ip-address${var.resource_name_suffix}"
