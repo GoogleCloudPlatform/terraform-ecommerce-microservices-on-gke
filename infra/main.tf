@@ -75,6 +75,11 @@ resource "google_container_cluster" "my_cluster_usa" {
   }
   node_config {
     service_account = google_service_account.my_service_account.email
+    # Need to set reservation_affinity manually, or else Google Cloud will set
+    # the "NO_RESERVATION" value itself and Terraform will "force replacement" of cluster.
+    reservation_affinity {
+      consume_reservation_type = "NO_RESERVATION"
+    }
   }
   provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
@@ -99,6 +104,11 @@ resource "google_container_cluster" "my_cluster_europe" {
   }
   node_config {
     service_account = google_service_account.my_service_account.email
+    # Need to set reservation_affinity manually, or else Google Cloud will set
+    # the "NO_RESERVATION" value itself and Terraform will "force replacement" of cluster.
+    reservation_affinity {
+      consume_reservation_type = "NO_RESERVATION"
+    }
   }
   provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
@@ -115,6 +125,11 @@ resource "google_container_cluster" "my_cluster_config" {
   cluster_autoscaling {
     auto_provisioning_defaults {
       service_account = google_service_account.my_service_account.email
+      # Need to set reservation_affinity manually, or else Google Cloud will set
+      # the "NO_RESERVATION" value itself and Terraform will "force replacement" of cluster.
+      reservation_affinity {
+        consume_reservation_type = "NO_RESERVATION"
+      }
     }
   }
   # Need an empty ip_allocation_policy to overcome an error related to autopilot node pool constraints.
