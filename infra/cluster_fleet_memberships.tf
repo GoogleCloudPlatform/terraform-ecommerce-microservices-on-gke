@@ -22,6 +22,9 @@ resource "google_gke_hub_membership" "my_fleet_membership_usa" {
       resource_link = "//container.googleapis.com/${google_container_cluster.my_cluster_usa.id}"
     }
   }
+  depends_on = [
+    module.enable_multi_cluster_google_apis
+  ]
   provider = google-beta
 }
 
@@ -33,6 +36,9 @@ resource "google_gke_hub_membership" "my_fleet_membership_europe" {
       resource_link = "//container.googleapis.com/${google_container_cluster.my_cluster_europe.id}"
     }
   }
+  depends_on = [
+    module.enable_multi_cluster_google_apis
+  ]
   provider = google-beta
 }
 
@@ -44,5 +50,8 @@ resource "google_gke_hub_membership" "my_fleet_membership_config" {
       resource_link = "//container.googleapis.com/${google_container_cluster.my_cluster_config.id}"
     }
   }
+  depends_on = [
+    module.enable_multi_cluster_google_apis
+  ]
   provider = google-beta
 }
