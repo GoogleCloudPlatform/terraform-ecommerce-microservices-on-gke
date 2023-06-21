@@ -20,7 +20,7 @@ resource "google_compute_global_address" "multi_cluster_ingress_ip_address" {
   address_type = "EXTERNAL"
   project      = var.project_id
   depends_on = [
-    module.enable_google_apis
+    module.enable_base_google_apis
   ]
 }
 
@@ -34,6 +34,9 @@ resource "google_gke_hub_feature" "multi_cluster_ingress_feature" {
     }
   }
   provider = google-beta
+  depends_on = [
+    module.enable_multi_cluster_google_apis
+  ]
 }
 
 resource "google_project_iam_member" "gke_mcs_importer_iam_binding" {

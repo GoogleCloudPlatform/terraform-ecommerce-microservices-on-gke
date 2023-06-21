@@ -94,6 +94,7 @@ resource "kubernetes_job" "kubernetes_manifests_deployer_job" {
     google_project_iam_member.google_service_account_is_kubernetes_admin,
     google_service_account_iam_member.allow_kubernetes_sa_to_impersonate_google_cloud_sa,
     kubernetes_service_account.kubernetes_manifests_deployer_service_account,
+    module.enable_multi_cluster_google_apis,
   ]
 }
 
@@ -117,7 +118,7 @@ resource "google_service_account" "kubernetes_manifests_deployer_service_account
   account_id   = local.google_service_account_id
   display_name = "Kubernetes Manifests Deployer"
   depends_on = [
-    module.enable_google_apis
+    module.enable_base_google_apis
   ]
 }
 

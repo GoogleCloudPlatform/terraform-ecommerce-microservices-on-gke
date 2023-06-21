@@ -22,16 +22,24 @@ provider "google-beta" {
   project = var.project_id
 }
 
-module "enable_google_apis" {
+module "enable_base_google_apis" {
   source                      = "terraform-google-modules/project-factory/google//modules/project_services"
   version                     = "~> 14.0"
   disable_services_on_destroy = false
   activate_apis = [
     "cloudresourcemanager.googleapis.com",
     "container.googleapis.com",
-    "dns.googleapis.com",
-    "gkehub.googleapis.com",
     "iam.googleapis.com",
+  ]
+  project_id = var.project_id
+}
+
+module "enable_multi_cluster_google_apis" {
+  source                      = "terraform-google-modules/project-factory/google//modules/project_services"
+  version                     = "~> 14.0"
+  disable_services_on_destroy = false
+  activate_apis = [
+    "gkehub.googleapis.com",
     "multiclusteringress.googleapis.com",
     "multiclusterservicediscovery.googleapis.com",
     "trafficdirector.googleapis.com",
@@ -43,7 +51,7 @@ resource "google_service_account" "my_service_account" {
   account_id   = "my-service-account${var.resource_name_suffix}"
   display_name = "My Service Account"
   depends_on = [
-    module.enable_google_apis
+    module.enable_base_google_apis
   ]
 }
 
@@ -54,7 +62,7 @@ resource "google_container_cluster" "my_cluster_usa" {
   project          = var.project_id
   resource_labels  = var.labels
   depends_on = [
-    module.enable_google_apis
+    module.enable_base_google_apis
   ]
   cluster_autoscaling {
     auto_provisioning_defaults {
@@ -78,7 +86,7 @@ resource "google_container_cluster" "my_cluster_europe" {
   project          = var.project_id
   resource_labels  = var.labels
   depends_on = [
-    module.enable_google_apis
+    module.enable_base_google_apis
   ]
   cluster_autoscaling {
     auto_provisioning_defaults {
@@ -102,7 +110,7 @@ resource "google_container_cluster" "my_cluster_config" {
   project          = var.project_id
   resource_labels  = var.labels
   depends_on = [
-    module.enable_google_apis
+    module.enable_base_google_apis
   ]
   cluster_autoscaling {
     auto_provisioning_defaults {
