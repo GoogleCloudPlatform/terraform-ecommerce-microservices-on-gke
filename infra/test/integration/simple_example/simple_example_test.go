@@ -67,7 +67,7 @@ func testDeploymentUrl(t *testing.T, assert *assert.Assertions, url string) erro
 		}
 
 		// Wait before retrying.
-		time.Sleep(4 * time.Second)
+		time.Sleep(5 * time.Second)
 	}
 
 	t.Logf("Waited too long for deployment URL.\n")
