@@ -18,6 +18,7 @@
 data "google_client_config" "default" {}
 
 resource "helm_release" "helm_chart_multi_cluster_ingress" {
+  provider  = helm.helm_provider_for_my_cluster_config
   name      = "helm-chart-multi-cluster-ingress"
   chart     = "${path.module}/helm_chart_multi_cluster_ingress"
   namespace = "frontend"

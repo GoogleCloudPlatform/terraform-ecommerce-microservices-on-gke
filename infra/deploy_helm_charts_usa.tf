@@ -19,6 +19,7 @@
 data "template_file" "helm_provider_usa" {
   template = file("${path.module}/helm_provider.tf.template")
   vars = {
+    helm_provider_alias    = "helm_provider_for_my_cluster_usa"
     cluster_host           = "https://${google_container_cluster.my_cluster_usa.endpoint}"
     cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_usa.master_auth[0].cluster_ca_certificate)
   }
@@ -43,7 +44,7 @@ resource "local_sensitive_file" "helm_provider_usa" {
 }
 
 resource "helm_release" "helm_chart_redis_cart_service_export" {
-  provider  = helm.helm_provider_usa
+  provider  = helm.helm_provider_for_my_cluster_usa
   name      = "helm-chart-redis-cart-service-export"
   chart     = "${path.module}/helm_chart_redis_cart_service_export"
   namespace = "cartservice"

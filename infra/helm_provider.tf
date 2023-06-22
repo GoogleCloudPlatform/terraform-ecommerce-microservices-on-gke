@@ -20,4 +20,5 @@ provider "helm" {
     token                  = data.google_client_config.default.access_token
     cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate)
   }
+  alias = "helm_provider_for_my_cluster_config"
 }
