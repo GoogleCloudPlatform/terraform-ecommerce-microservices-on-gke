@@ -15,5 +15,5 @@
 apiVersion: net.gke.io/v1
 kind: ServiceExport
 metadata:
- namespace: cartservice
- name: redis-cart
+  namespace: cartservice
+  name: redis-cart
