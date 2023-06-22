@@ -86,7 +86,7 @@ resource "kubernetes_job" "kubernetes_manifests_deployer_job" {
   }
   wait_for_completion = true
   timeouts {
-    create = "600s"
+    create = "900s"
   }
   depends_on = [
     google_container_cluster.my_cluster_europe,
