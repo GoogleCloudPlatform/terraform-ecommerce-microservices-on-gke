@@ -47,6 +47,8 @@ module "enable_multi_cluster_google_apis" {
   project_id = var.project_id
 }
 
+# Assign a custom service account to the 3 GKE clusters
+# because some users' projects will not have the default Compute Engine service account enabled.
 resource "google_service_account" "my_service_account" {
   account_id   = "my-service-account${var.resource_name_suffix}"
   display_name = "My Service Account"
@@ -73,9 +75,6 @@ resource "google_container_cluster" "my_cluster_usa" {
   # Workaround from https://github.com/hashicorp/terraform-provider-google/issues/10782#issuecomment-1024488630
   ip_allocation_policy {
   }
-  node_config {
-    service_account = google_service_account.my_service_account.email
-  }
   provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
 
@@ -97,9 +96,6 @@ resource "google_container_cluster" "my_cluster_europe" {
   # Workaround from https://github.com/hashicorp/terraform-provider-google/issues/10782#issuecomment-1024488630
   ip_allocation_policy {
   }
-  node_config {
-    service_account = google_service_account.my_service_account.email
-  }
   provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
 
@@ -120,9 +116,6 @@ resource "google_container_cluster" "my_cluster_config" {
   # Need an empty ip_allocation_policy to overcome an error related to autopilot node pool constraints.
   # Workaround from https://github.com/hashicorp/terraform-provider-google/issues/10782#issuecomment-1024488630
   ip_allocation_policy {
-  }
-  node_config {
-    service_account = google_service_account.my_service_account.email
   }
   provider = google-beta # Needed for the google_gkehub_feature Terraform module.
 }
