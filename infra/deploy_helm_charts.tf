@@ -14,8 +14,26 @@
  * limitations under the License.
  */
 
-// Enable access to the configuration of the Google Cloud provider.
+# Enable access to the configuration of the Google Cloud provider.
 data "google_client_config" "default" {}
+
+provider "helm" {
+  alias = "helm_provider_for_my_cluster_config"
+  kubernetes {
+    host                   = "https://${google_container_cluster.my_cluster_config.endpoint}"
+    token                  = data.google_client_config.default.access_token
+    cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_config.master_auth[0].cluster_ca_certificate)
+  }
+}
+
+provider "helm" {
+  alias = "helm_provider_for_my_cluster_usa"
+  kubernetes {
+    host                   = "https://${google_container_cluster.my_cluster_usa.endpoint}"
+    token                  = data.google_client_config.default.access_token
+    cluster_ca_certificate = base64decode(google_container_cluster.my_cluster_usa.master_auth[0].cluster_ca_certificate)
+  }
+}
 
 resource "helm_release" "helm_chart_multi_cluster_ingress" {
   provider  = helm.helm_provider_for_my_cluster_config
@@ -32,6 +50,17 @@ resource "helm_release" "helm_chart_multi_cluster_ingress" {
   }
   depends_on = [
     kubernetes_job.kubernetes_manifests_deployer_job, # This allows us to wait for the MCI CRDs.
+    time_sleep.wait_after_destroying_mci_k8s_and_before_destroying_mci_feature
+  ]
+}
+
+resource "helm_release" "helm_chart_redis_cart_service_export" {
+  provider  = helm.helm_provider_for_my_cluster_usa
+  name      = "helm-chart-redis-cart-service-export"
+  chart     = "${path.module}/helm_chart_redis_cart_service_export"
+  namespace = "cartservice"
+  depends_on = [
+    kubernetes_job.kubernetes_manifests_deployer_job, # This allows us to wait for the ServiceExport CRD.
     time_sleep.wait_after_destroying_mci_k8s_and_before_destroying_mci_feature
   ]
 }
