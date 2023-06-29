@@ -54,10 +54,10 @@ resource "helm_release" "helm_chart_multi_cluster_ingress" {
   ]
 }
 
-resource "helm_release" "helm_chart_redis_cart_service_export" {
+resource "helm_release" "helm_chart_redis_cart" {
   provider  = helm.helm_provider_for_my_cluster_usa
-  name      = "helm-chart-redis-cart-service-export"
-  chart     = "${path.module}/helm_chart_redis_cart_service_export"
+  name      = "helm-chart-redis-cart"
+  chart     = "${path.module}/helm_chart_redis_cart"
   namespace = "cartservice"
   depends_on = [
     kubernetes_job.kubernetes_manifests_deployer_job, # This allows us to wait for the ServiceExport CRD.

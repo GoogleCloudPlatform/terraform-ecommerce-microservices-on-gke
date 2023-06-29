@@ -17,12 +17,6 @@ kind: Deployment
 metadata:
   name: redis-cart
   namespace: cartservice
-  # These Helm-related Annotations/Labels allow the Helm (inside Terraform) to control this resource.
-  labels:
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: helm-chart-redis-cart
-    meta.helm.sh/release-namespace: cartservice
 spec:
   selector:
     matchLabels:
@@ -76,12 +70,6 @@ kind: Service
 metadata:
   name: redis-cart
   namespace: cartservice
-  # These Helm-related Annotations/Labels allow the Helm (inside Terraform) to control this resource.
-  labels:
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: helm-chart-redis-cart
-    meta.helm.sh/release-namespace: cartservice
 spec:
   type: ClusterIP
   selector:

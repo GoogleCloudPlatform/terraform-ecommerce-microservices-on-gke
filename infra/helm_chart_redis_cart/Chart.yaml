@@ -13,7 +13,7 @@
 # limitations under the License.
 
 apiVersion: v2
-name: redis-cart-service-export
+name: redis-cart
 # We should use Release Please to bump this with every release.
 version: 0.0.0
 type: application
