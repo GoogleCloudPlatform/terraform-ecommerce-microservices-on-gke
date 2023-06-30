@@ -21,5 +21,5 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: Helm
   annotations:
-    meta.helm.sh/release-name: helm-chart-redis-cart-service-export
+    meta.helm.sh/release-name: helm-chart-redis-cart
     meta.helm.sh/release-namespace: cartservice
