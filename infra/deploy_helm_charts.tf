@@ -67,7 +67,7 @@ resource "helm_release" "helm_chart_redis_cart" {
 }
 
 resource "time_sleep" "wait_after_destroying_mci_k8s_and_before_destroying_mci_feature" {
-  destroy_duration = "300s"
+  destroy_duration = "360s"
   depends_on = [
     google_gke_hub_feature.multi_cluster_ingress_feature
   ]
