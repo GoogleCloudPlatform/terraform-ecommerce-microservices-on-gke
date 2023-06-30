@@ -51,6 +51,11 @@ resource "google_compute_network" "my_vpc_network" {
   project                 = var.project_id
   name                    = "my-vpc-network${var.resource_name_suffix}"
   auto_create_subnetworks = true
+  depends_on = [
+    # Terraform should delete this VPC network before disabling APIs.
+    module.enable_base_google_apis,
+    module.enable_multi_cluster_google_apis
+  ]
 }
 
 # Assign a custom service account to the 3 GKE clusters
