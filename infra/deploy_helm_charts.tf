@@ -59,6 +59,7 @@ resource "helm_release" "helm_chart_redis_cart" {
   name      = "helm-chart-redis-cart"
   chart     = "${path.module}/helm_chart_redis_cart"
   namespace = "cartservice"
+  wait      = false # Don't wait for redis-card Deployment to be ready.
   depends_on = [
     kubernetes_job.kubernetes_manifests_deployer_job, # This allows us to wait for the ServiceExport CRD.
     time_sleep.wait_after_destroying_mci_k8s_and_before_destroying_mci_feature
