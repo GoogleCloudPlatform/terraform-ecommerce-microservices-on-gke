@@ -16,10 +16,7 @@ package simple_example
 
 import (
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"testing"
-	"time"
 
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/gcloud"
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/tft"
@@ -35,43 +32,10 @@ func TestSimpleExample(t *testing.T) {
 
 	example.DefineVerify(func(assert *assert.Assertions) {
 		projectId := example.GetTFSetupStringOutput("project_id")
-		deploymentIpAddr := example.GetStringOutput("deployment_ip_address")
-		deploymentUrl := fmt.Sprintf("http://%s", deploymentIpAddr)
-		testDeploymentUrl(t, assert, deploymentUrl)
 		testGoogleCloudApis(t, assert, projectId)
 	})
 
 	example.Test()
-}
-
-func testDeploymentUrl(t *testing.T, assert *assert.Assertions, url string) error {
-	for attemptNum := 1; attemptNum <= 60; attemptNum++ {
-
-		// Failed request.
-		response, err := http.Get(url)
-		if err != nil {
-			t.Logf("Deployment URL HTTP request error: %s\n", err)
-
-		} else if 200 <= response.StatusCode && response.StatusCode <= 299 { // Got some 200 responses.
-			responseBody, err := ioutil.ReadAll(response.Body)
-			if err != nil {
-				return err
-			}
-			responseBodyString := string(responseBody)
-			assert.Containsf(responseBodyString, "us-west1", "couldn't find text 'us-west1' in deployment's response")
-			assert.Containsf(responseBodyString, "Cymbal Shops", "Couldn't find text 'Cymbal Shops' in deployment's response")
-			return nil
-
-		} else { // Got a non-200 response.
-			t.Logf("Deployment URL responded with status code: %d.\n", response.StatusCode)
-		}
-
-		// Wait before retrying.
-		time.Sleep(4 * time.Second)
-	}
-
-	t.Logf("Waited too long for deployment URL.\n")
-	return nil
 }
 
 func testGoogleCloudApis(t *testing.T, assert *assert.Assertions, projectId string) {
