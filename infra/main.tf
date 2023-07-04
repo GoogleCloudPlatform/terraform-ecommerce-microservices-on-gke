@@ -63,28 +63,6 @@ resource "google_service_account" "my_service_account" {
   ]
 }
 
-resource "google_container_cluster" "my_cluster_usa" {
-  name             = "my-cluster-usa${var.resource_name_suffix}"
-  location         = "us-west1"
-  enable_autopilot = true
-  project          = var.project_id
-  resource_labels  = var.labels
-  network          = google_compute_network.my_vpc_network.self_link
-  depends_on = [
-    module.enable_base_google_apis
-  ]
-  cluster_autoscaling {
-    auto_provisioning_defaults {
-      service_account = google_service_account.my_service_account.email
-    }
-  }
-  # Need an empty ip_allocation_policy to overcome an error related to autopilot node pool constraints.
-  # Workaround from https://github.com/hashicorp/terraform-provider-google/issues/10782#issuecomment-1024488630
-  ip_allocation_policy {
-  }
-  provider = google-beta # Needed for the google_gkehub_feature Terraform module.
-}
-
 resource "google_container_cluster" "my_cluster_europe" {
   name             = "my-cluster-europe${var.resource_name_suffix}"
   location         = "europe-west1"
