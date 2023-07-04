@@ -27,17 +27,3 @@ resource "google_gke_hub_membership" "my_fleet_membership_europe" {
   ]
   provider = google-beta
 }
-
-resource "google_gke_hub_membership" "my_fleet_membership_config" {
-  membership_id = "my-fleet-membership-config${var.resource_name_suffix}"
-  project       = var.project_id
-  endpoint {
-    gke_cluster {
-      resource_link = "//container.googleapis.com/${google_container_cluster.my_cluster_config.id}"
-    }
-  }
-  depends_on = [
-    module.enable_multi_cluster_google_apis
-  ]
-  provider = google-beta
-}
