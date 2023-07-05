@@ -16,6 +16,7 @@ package simple_example
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/gcloud"
@@ -33,6 +34,7 @@ func TestSimpleExample(t *testing.T) {
 	example.DefineVerify(func(assert *assert.Assertions) {
 		projectId := example.GetTFSetupStringOutput("project_id")
 		testGoogleCloudApis(t, assert, projectId)
+		testFirewallRules(t, assert, projectId)
 	})
 
 	example.Test()
@@ -56,4 +58,17 @@ func testGoogleCloudApis(t *testing.T, assert *assert.Assertions, projectId stri
 			assert.Equal("ENABLED", match.Get("state").String(), "%s service should be enabled", tc.service)
 		})
 	}
+}
+
+func testFirewallRules(t *testing.T, assert *assert.Assertions, projectId string) {
+	firewallRules := gcloud.Run(t, "compute firewall-rules list", gcloud.WithCommonArgs([]string{"--project", projectId, "--format", "json"})).Array()
+	numOfMcsdRules := 0 // Each cluster should have a rule similar to gke-my-cluster-europe-1-52cb04c5-mcsd.
+	for i := 0; i < len(firewallRules); i++ {
+		rule := firewallRules[i]
+		name := rule.Get("name").String()
+		if strings.HasSuffix(name, "-mcsd") {
+			numOfMcsdRules++
+		}
+	}
+	assert.Equal(1, numOfMcsdRules, "Number of -mcsd firewall rules (%s) should be 1 — one for each cluster.", numOfMcsdRules)
 }
