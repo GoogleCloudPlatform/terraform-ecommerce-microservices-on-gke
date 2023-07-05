@@ -54,7 +54,7 @@ resource "google_compute_network" "my_vpc_network" {
 }
 
 resource "time_sleep" "wait_after_destroying_clusters_and_before_destroying_vpc_network" {
-  destroy_duration = "180s"
+  destroy_duration = "360s"
   depends_on = [
     google_compute_network.my_vpc_network
   ]
