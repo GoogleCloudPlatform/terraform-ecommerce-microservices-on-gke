@@ -53,6 +53,13 @@ resource "google_compute_network" "my_vpc_network" {
   auto_create_subnetworks = true
 }
 
+resource "time_sleep" "wait_after_destroying_clusters_and_before_destroying_vpc_network" {
+  destroy_duration = "180s"
+  depends_on = [
+    google_compute_network.my_vpc_network
+  ]
+}
+
 # Assign a custom service account to the 3 GKE clusters
 # because some users' projects will not have the default Compute Engine service account enabled.
 resource "google_service_account" "my_service_account" {
@@ -71,7 +78,8 @@ resource "google_container_cluster" "my_cluster_usa" {
   resource_labels  = var.labels
   network          = google_compute_network.my_vpc_network.self_link
   depends_on = [
-    module.enable_base_google_apis
+    module.enable_base_google_apis,
+    time_sleep.wait_after_destroying_clusters_and_before_destroying_vpc_network
   ]
   cluster_autoscaling {
     auto_provisioning_defaults {
@@ -93,7 +101,8 @@ resource "google_container_cluster" "my_cluster_europe" {
   resource_labels  = var.labels
   network          = google_compute_network.my_vpc_network.self_link
   depends_on = [
-    module.enable_base_google_apis
+    module.enable_base_google_apis,
+    time_sleep.wait_after_destroying_clusters_and_before_destroying_vpc_network
   ]
   cluster_autoscaling {
     auto_provisioning_defaults {
@@ -115,7 +124,8 @@ resource "google_container_cluster" "my_cluster_config" {
   resource_labels  = var.labels
   network          = google_compute_network.my_vpc_network.self_link
   depends_on = [
-    module.enable_base_google_apis
+    module.enable_base_google_apis,
+    time_sleep.wait_after_destroying_clusters_and_before_destroying_vpc_network
   ]
   cluster_autoscaling {
     auto_provisioning_defaults {
