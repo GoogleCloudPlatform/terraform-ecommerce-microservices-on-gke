@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 	"testing"
 	"time"
 
@@ -39,6 +40,7 @@ func TestSimpleExample(t *testing.T) {
 		deploymentUrl := fmt.Sprintf("http://%s", deploymentIpAddr)
 		testDeploymentUrl(t, assert, deploymentUrl)
 		testGoogleCloudApis(t, assert, projectId)
+		testFirewallRules(t, assert, projectId)
 	})
 
 	example.Test()
@@ -92,4 +94,17 @@ func testGoogleCloudApis(t *testing.T, assert *assert.Assertions, projectId stri
 			assert.Equal("ENABLED", match.Get("state").String(), "%s service should be enabled", tc.service)
 		})
 	}
+}
+
+func testFirewallRules(t *testing.T, assert *assert.Assertions, projectId string) {
+	firewallRules := gcloud.Run(t, "compute firewall-rules list", gcloud.WithCommonArgs([]string{"--project", projectId, "--format", "json"})).Array()
+	numOfMcsdRules := 0 // Each cluster should have a rule similar to gke-my-cluster-europe-1-52cb04c5-mcsd.
+	for i := 0; i < len(firewallRules); i++ {
+		rule := firewallRules[i]
+		name := rule.Get("name").String()
+		if strings.HasSuffix(name, "-mcsd") {
+			numOfMcsdRules++
+		}
+	}
+	assert.Equal(3, numOfMcsdRules, "Number of -mcsd firewall rules (%s) should be 3 — one for each cluster.", numOfMcsdRules)
 }
