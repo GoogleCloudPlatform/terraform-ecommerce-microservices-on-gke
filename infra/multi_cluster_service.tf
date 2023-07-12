@@ -23,6 +23,24 @@ resource "google_project_iam_member" "my_service_account_role_network_viewer" {
   ]
 }
 
+resource "google_project_iam_member" "my_service_account_role_metrics_writer" {
+  project = var.project_id
+  role    = "roles/monitoring.metricWriter"
+  member  = "serviceAccount:${google_service_account.my_service_account.email}"
+  depends_on = [
+    module.enable_base_google_apis
+  ]
+}
+
+resource "google_project_iam_member" "my_service_account_role_log_writer" {
+  project = var.project_id
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:${google_service_account.my_service_account.email}"
+  depends_on = [
+    module.enable_base_google_apis
+  ]
+}
+
 resource "google_compute_global_address" "multi_cluster_ingress_ip_address" {
   provider     = google-beta
   name         = "multi-cluster-ingress-ip-address${var.resource_name_suffix}"
