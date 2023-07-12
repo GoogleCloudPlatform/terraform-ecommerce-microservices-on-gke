@@ -57,6 +57,30 @@ resource "google_service_account" "my_service_account" {
   ]
 }
 
+resource "google_project_iam_member" "my_service_account_role_metric_writer" {
+  project = var.project_id
+  role    = "roles/monitoring.metricWriter"
+  member  = "serviceAccount:${google_service_account.my_service_account.email}"
+}
+
+resource "google_project_iam_member" "my_service_account_role_log_writer" {
+  project = var.project_id
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:${google_service_account.my_service_account.email}"
+}
+
+resource "google_project_iam_member" "my_service_account_role_monitoring_viewer" {
+  project = var.project_id
+  role    = "roles/monitoring.viewer"
+  member  = "serviceAccount:${google_service_account.my_service_account.email}"
+}
+
+resource "google_project_iam_member" "my_service_account_role_stackdriver_writer" {
+  project = var.project_id
+  role    = "roles/stackdriver.resourceMetadata.writer"
+  member  = "serviceAccount:${google_service_account.my_service_account.email}"
+}
+
 resource "google_container_cluster" "my_cluster_usa" {
   name             = "my-cluster-usa${var.resource_name_suffix}"
   location         = "us-west1"
