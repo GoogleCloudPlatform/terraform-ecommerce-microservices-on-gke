@@ -12,7 +12,7 @@ The following is a description of what's deployed by this solution:
 1. **Static external IP address**: The Cymbal Shops application will be pubicly acessible via an IP address, reserved and output (into your command line interface) by the Terraform. The IP address may take about 5 minutes to actually serve the frontend since multi-cluster ingress takes a few minutes to warm up.
 1. **Single Redis _cart_ database**: The items in users' carts are managed in a single Redis databases, only deployed to a US cluster — for data consistency.
 
-<img src="./docs/architectural-diagram.png" alt="Architectural diagram showing the Cymbal Shops application's microservices deployed into 2 GKE clusters — one in the US, and one in Europe. A third cluster in the US contains Kubernetes resources for MultiClusterIngress and MultiClusterService." height="650" />
+<img src="/docs/architectural-diagram.png" alt="Architectural diagram showing the Cymbal Shops application's microservices deployed into 2 GKE clusters — one in the US, and one in Europe. A third cluster in the US contains Kubernetes resources for MultiClusterIngress and MultiClusterService." height="650" />
 
 To learn more about the deployed infrastructure, read the [solution guide on cloud.google.com](https://cloud.google.com/architecture/application-development/ecommerce-microservices).
 
