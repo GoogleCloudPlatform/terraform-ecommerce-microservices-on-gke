@@ -34,3 +34,12 @@ variable "resource_name_suffix" {
   It shoud not end with a dash.
   EOT
 }
+
+variable "should_wait_until_deployment_ready" {
+  type        = string
+  default     = true
+  description = <<EOT
+  Optional boolean which, when true, will make "terraform apply" wait until the deployment's
+  IP address successfully serves the app (responds with a 2xx status).
+  EOT
+}
