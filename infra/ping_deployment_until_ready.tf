@@ -15,6 +15,7 @@
  */
 
 # Force "terraform apply" to wait until the deployment IP address successfully serves the app.
+# tflint-ignore: terraform_unused_declarations
 data "http" "ping_deployment_until_ready" {
   count  = var.should_wait_until_deployment_ready ? 1 : 0
   url    = "http://${resource.google_compute_global_address.multi_cluster_ingress_ip_address.address}"
