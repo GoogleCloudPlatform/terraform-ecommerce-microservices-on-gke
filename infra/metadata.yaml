@@ -24,6 +24,7 @@ spec:
     source:
       repo: https://github.com/GoogleCloudPlatform/terraform-ecommerce-microservices-on-gke.git
       sourceType: git
+      dir: /infra
     actuationTool:
       flavor: Terraform
       version: '>= 0.13'
@@ -49,6 +50,12 @@ spec:
           It shoud not end with a dash.
       varType: string
       defaultValue: "-1"
+    - name: should_wait_until_deployment_ready
+      description: |2
+          Optional boolean which, when true, will make "terraform apply" wait until the deployment's
+          IP address successfully serves the app (responds with a 2xx status).
+      varType: string
+      defaultValue: true
     outputs:
     - name: deployment_ip_address
       description: Public IP address of the deployment

@@ -80,6 +80,7 @@ Replace `MY_PROJECT_ID` with your [Google Cloud Project](https://cloud.google.co
 | labels | A set of key/value label pairs to assign to the resources deployed by this blueprint. | `map(string)` | `{}` | no |
 | project\_id | The Google Cloud project ID. | `string` | n/a | yes |
 | resource\_name\_suffix | Optional string added to the end of resource names, allowing project reuse.<br>  This should be short and only contain dashes, lowercase letters, and digits.<br>  It shoud not end with a dash. | `string` | `"-1"` | no |
+| should\_wait\_until\_deployment\_ready | Optional boolean which, when true, will make "terraform apply" wait until the deployment's<br>  IP address successfully serves the app (responds with a 2xx status). | `string` | `true` | no |
 
 ## Outputs
 
