@@ -21,7 +21,7 @@ data "http" "ping_deployment_until_ready" {
   url    = "http://${resource.google_compute_global_address.multi_cluster_ingress_ip_address.address}"
   method = "HEAD" # There's no point GET-ing the full body.
   retry {
-    attempts     = 30
+    attempts     = 60
     max_delay_ms = 1000 * 10
     min_delay_ms = 1000 * 10
   }
