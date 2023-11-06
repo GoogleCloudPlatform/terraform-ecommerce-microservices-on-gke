@@ -82,11 +82,12 @@ resource "google_project_iam_member" "my_service_account_role_stackdriver_writer
 }
 
 resource "google_container_cluster" "my_cluster_usa" {
-  name             = "my-cluster-usa${var.resource_name_suffix}"
-  location         = "us-west1"
-  enable_autopilot = true
-  project          = var.project_id
-  resource_labels  = var.labels
+  name                = "my-cluster-usa${var.resource_name_suffix}"
+  location            = "us-west1"
+  enable_autopilot    = true
+  project             = var.project_id
+  resource_labels     = var.labels
+  deletion_protection = false
   depends_on = [
     module.enable_base_google_apis
   ]
@@ -108,6 +109,7 @@ resource "google_container_cluster" "my_cluster_europe" {
   enable_autopilot = true
   project          = var.project_id
   resource_labels  = var.labels
+  deletion_protection = false
   depends_on = [
     module.enable_base_google_apis
   ]
@@ -129,6 +131,7 @@ resource "google_container_cluster" "my_cluster_config" {
   enable_autopilot = true
   project          = var.project_id
   resource_labels  = var.labels
+  deletion_protection = false
   depends_on = [
     module.enable_base_google_apis
   ]
