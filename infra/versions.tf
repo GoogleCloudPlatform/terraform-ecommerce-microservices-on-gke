@@ -19,31 +19,31 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = ">= 4.80.0"
+      version = "~> v5.4"
     }
     google-beta = {
       source  = "hashicorp/google-beta"
-      version = ">= 4.80.0"
+      version = "~> v5.4"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 2.19.0"
+      version = "~> 2.23"
     }
     time = {
       source  = "hashicorp/time"
-      version = ">= 0.9"
+      version = "~> 0.9"
     }
     template = {
       source  = "hashicorp/template"
-      version = ">=2.2"
+      version = "~> 2.2"
     }
     local = {
       source  = "hashicorp/local"
-      version = ">=2.4"
+      version = "~> 2.4"
     }
     helm = {
       source  = "hashicorp/helm"
-      version = ">=2.9"
+      version = "~> 2.11"
     }
   }
 }
