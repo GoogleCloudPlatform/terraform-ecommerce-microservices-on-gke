@@ -1,6 +1,6 @@
 module github.com/GoogleCloudPlatform/terraform-ecommerce-microservices-on-gke/test/integration
 
-go 1.20
+go 1.20.11
 
 require (
 	github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test v0.10.1
