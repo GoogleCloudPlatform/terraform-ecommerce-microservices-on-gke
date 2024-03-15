@@ -1,0 +1,8 @@
+roles/compute.networkAdmin
+roles/config.agent
+roles/container.admin
+roles/gkehub.editor
+roles/iam.serviceAccountAdmin
+roles/iam.serviceAccountUser
+roles/resourcemanager.projectIamAdmin
+roles/serviceusage.serviceUsageAdmin
