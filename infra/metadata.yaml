@@ -27,46 +27,43 @@ spec:
       dir: /infra
     actuationTool:
       flavor: Terraform
-      version: '>= 0.13'
+      version: ">= 0.13"
     description: {}
   content:
     examples:
-    - name: simple_example
-      location: examples/simple_example
+      - name: simple_example
+        location: examples/simple_example
   interfaces:
     variables:
-    - name: labels
-      description: A set of key/value label pairs to assign to the resources deployed by this blueprint.
-      varType: map(string)
-      defaultValue: {}
-    - name: project_id
-      description: The Google Cloud project ID.
-      varType: string
-      required: true
-    - name: resource_name_suffix
-      description: |2
-          Optional string added to the end of resource names, allowing project reuse.
-          This should be short and only contain dashes, lowercase letters, and digits.
-          It shoud not end with a dash.
-      varType: string
-      defaultValue: "-1"
+      - name: labels
+        description: A set of key/value label pairs to assign to the resources deployed by this blueprint.
+        varType: map(string)
+        defaultValue: {}
+      - name: project_id
+        description: The Google Cloud project ID.
+        varType: string
+        required: true
+      - name: resource_name_suffix
+        description: "  Optional string added to the end of resource names, allowing project reuse.\n  This should be short and only contain dashes, lowercase letters, and digits.\n  It shoud not end with a dash.\n"
+        varType: string
+        defaultValue: "-1"
     outputs:
-    - name: deployment_ip_address
-      description: Public IP address of the deployment
-    - name: neos_toc_url
-      description: Neos Tutorial URL
+      - name: deployment_ip_address
+        description: Public IP address of the deployment
+      - name: neos_toc_url
+        description: Neos Tutorial URL
   requirements:
     roles:
-    - level: Project
-      roles:
-      - roles/compute.networkAdmin
-      - roles/container.admin
-      - roles/gkehub.editor
-      - roles/iam.serviceAccountAdmin
-      - roles/iam.serviceAccountUser
-      - roles/resourcemanager.projectIamAdmin
-      - roles/serviceusage.serviceUsageAdmin
+      - level: Project
+        roles:
+          - roles/compute.networkAdmin
+          - roles/container.admin
+          - roles/gkehub.editor
+          - roles/iam.serviceAccountAdmin
+          - roles/iam.serviceAccountUser
+          - roles/resourcemanager.projectIamAdmin
+          - roles/serviceusage.serviceUsageAdmin
     services:
-    - cloudresourcemanager.googleapis.com
-    - storage-api.googleapis.com
-    - serviceusage.googleapis.com
+      - cloudresourcemanager.googleapis.com
+      - storage-api.googleapis.com
+      - serviceusage.googleapis.com
