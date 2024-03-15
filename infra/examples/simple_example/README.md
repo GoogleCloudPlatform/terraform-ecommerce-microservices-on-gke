@@ -2,11 +2,20 @@
 
 This example illustrates how to use the `ecommerce-microservices-on-gke` module.
 
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | project\_id | Google Cloud Project ID | `string` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| deployment\_ip\_address | n/a |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Quickstart
 
