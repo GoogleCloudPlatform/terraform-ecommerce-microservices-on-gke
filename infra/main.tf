@@ -24,7 +24,7 @@ provider "google-beta" {
 
 module "enable_base_google_apis" {
   source                      = "terraform-google-modules/project-factory/google//modules/project_services"
-  version                     = "~> 15.0"
+  version                     = "~> 16.0"
   disable_services_on_destroy = false
   activate_apis = [
     "cloudresourcemanager.googleapis.com",
@@ -36,7 +36,7 @@ module "enable_base_google_apis" {
 
 module "enable_multi_cluster_google_apis" {
   source                      = "terraform-google-modules/project-factory/google//modules/project_services"
-  version                     = "~> 15.0"
+  version                     = "~> 16.0"
   disable_services_on_destroy = false
   activate_apis = [
     "gkehub.googleapis.com",
