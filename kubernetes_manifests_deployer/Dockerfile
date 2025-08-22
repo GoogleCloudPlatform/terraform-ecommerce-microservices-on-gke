@@ -15,7 +15,7 @@
 # This Docker image is available a URL similar to: us-docker.pkg.dev/google-samples/containers/gke/kubernetes-manifests-deployer:vX.Y.Z
 
 # Some commands needed for the shell scripts: gcloud, kubectl, sed.
-FROM google/cloud-sdk:493.0.0-alpine@sha256:a2f9df8f858fc51f216561ea24f22b1fd35f348be686ed6647a17237813c4119
+FROM google/cloud-sdk:534.0.0-alpine@sha256:64ad51eea4b6ded7be78ee2e017f661880355823c0e02afd5cc131346c69a122
 RUN gcloud components install kubectl gke-gcloud-auth-plugin
 
 WORKDIR /app
